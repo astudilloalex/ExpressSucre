@@ -1,3 +1,4 @@
+<?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
           "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
@@ -5,31 +6,25 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
-<head>
-<title><ui:insert name="title">Default title</ui:insert></title>
-</head>
+<h:head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+        <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+<title><ui:insert name="title">Express Sucre</ui:insert></title>
+<h:outputScript library="js" name="jsfcrud.js"/>
+</h:head>
 
-<body>
-	<ui:debug hotkey="x"
-		rendered="#{initParam['javax.faces.FACELETS_DEVELOPMENT']}" />
-
+<h:body>
 	<div id="header">
 		<ui:insert name="header">
 			<h:form>
-				<p:growl id="messages" />
+				<p:growl id="message" />
 
 				<p:menubar>
-					<p:submenu label="Admin" icon="<i class="pi pi-user-plus"></i>">
-						<p:submenu label="New" icon="pi pi-briefcase">
-							<p:menuitem value="Project" url="#" />
-							<p:menuitem value="Other" url="#" />
-						</p:submenu>
-						<p:menuitem value="Open" url="#" />
-						<p:separator />
-						<p:menuitem value="Quit" url="#" />
+					<p:submenu label="Admin" icon="pi pi-user-plus">
+						<p:menuitem value="Roles" url="/ExpressSucre/faces/role/list.xhtml" />
+						<p:menuitem value="Usuarios" url="#" />
 					</p:submenu>
 					<f:facet name="options">
-						<p:inputText style="margin:1px 10px 1px 1px;" placeholder="Search" />
 						<p:commandButton type="button" value="Logout" icon="pi pi-home" />
 					</f:facet>
 				</p:menubar>
@@ -40,7 +35,6 @@
 
 	<div id="content">
 		<ui:insert name="content">
-    	Content area.  See comments below this line in the source.
     	<!--  include your content file or uncomment the include below and create content.xhtml in this directory -->
 			<!-- <div> -->
 			<!-- <ui:include src="content.xhtml"/> -->
@@ -50,12 +44,11 @@
 
 	<div id="footer">
 		<ui:insert name="footer">
-    	Footer area.  See comments below this line in the source.
     	<!--  include your header file or uncomment the include below and create footer.xhtml in this directory -->
 			<!--<ui:include src="footer.xhtml"/>  -->
 		</ui:insert>
 	</div>
 
-</body>
+</h:body>
 
 </html>
