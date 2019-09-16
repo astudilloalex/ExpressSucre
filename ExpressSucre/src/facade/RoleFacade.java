@@ -8,7 +8,7 @@ import data.AbstractFacade;
 import model.Role;
 
 @Stateless
-public class RolesFacade extends AbstractFacade<Role> {
+public class RoleFacade extends AbstractFacade<Role> {
 
 	@PersistenceContext(name = "ExpressSucre")
 	private EntityManager entityManager;
@@ -19,7 +19,7 @@ public class RolesFacade extends AbstractFacade<Role> {
 		return this.entityManager;
 	}
 	
-	public RolesFacade() {
+	public RoleFacade() {
 		super(Role.class);
 		// TODO Auto-generated constructor stub
 	}
