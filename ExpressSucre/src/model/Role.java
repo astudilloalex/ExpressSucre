@@ -71,7 +71,6 @@ public class Role implements Serializable {
 	public User removeUser(User user) {
 		getUsers().remove(user);
 		user.setRoleBean(null);
-
 		return user;
 	}
 
