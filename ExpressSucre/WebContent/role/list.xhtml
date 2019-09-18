@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template.xhtml">
+	<ui:define name="title">
+	    <h:outputText value="#{bundle.ListRoleTitle}"></h:outputText>
+	</ui:define>
+	<ui:define name="content">
+	    <h:form id="roleListForm">
+	    	<p:dataTable id="roleDataTable" var="item" value="#{roleController.items}" selectionMode="single" selection="#{roleController.selected}" rowKey="#{item.id}" reflow="true" rows="10" paginator="true" widgetVar="roleTableVar">
+	    		<p:ajax event="rowSelect"   update="createButton"/>
+                <p:ajax event="rowUnselect" update="createButton"/>
+	    		<p:column headerText="#{bundle.ListRoleTitle_Id}">
+	    			<h:outputText value="#{item.id}"></h:outputText>
+	    		</p:column>
+	    		<p:column headerText="#{bundle.ListRoleTitle_Code}">
+	    			<h:outputText value="#{item.code}"></h:outputText>
+	    		</p:column>
+	    		<p:column headerText="#{bundle.ListRoleTitle_Name}">
+	    			<h:outputText value="#{item.name}"></h:outputText>
+	    		</p:column>
+	    		<f:facet name="footer">
+	    			<p:commandButton id="createButton" icon="ui-icon-plus" value="#{bundle.Create}" actionListener="#{roleController.prepareCreate}" update=":roleCreateForm" oncomplete="PF('roleCreateDialog').show()"/>
+	    		</f:facet>
+	    	</p:dataTable>
+	    </h:form>
+	    <ui:include src="create.xhtml"/>
+	</ui:define>
+</ui:composition>
+</html>
