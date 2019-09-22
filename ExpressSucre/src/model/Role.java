@@ -4,26 +4,25 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.List;
 
-
 /**
  * The persistent class for the role database table.
  * 
  */
 @Entity
-@NamedQuery(name="Role.findAll", query="SELECT r FROM Role r")
+@NamedQuery(name = "Role.findAll", query = "SELECT r FROM Role r")
 public class Role implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
 	private String code;
 
 	private String name;
 
-	//bi-directional many-to-one association to User
-	@OneToMany(mappedBy="roleBean")
+	// bi-directional many-to-one association to User
+	@OneToMany(mappedBy = "roleBean")
 	private List<User> users;
 
 	public Role() {
@@ -75,4 +74,23 @@ public class Role implements Serializable {
 		return user;
 	}
 
+	@Override
+	public int hashCode() {
+		int hash = 0;
+		hash += (id != null ? id.hashCode() : 0);
+		return hash;
+	}
+
+	@Override
+	public boolean equals(Object object) {
+		// TODO: Warning - this method won't work in the case the id fields are not set
+		if (!(object instanceof Role)) {
+			return false;
+		}
+		Role other = (Role) object;
+		if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+			return false;
+		}
+		return true;
+	}
 }

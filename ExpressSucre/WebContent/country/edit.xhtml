@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition>
+	<p:dialog id="countryEditDlg" widgetVar="countryEditDialog" responsive="true" resizable="false" draggable="false" modal="true" header="#{bundle.EditCountryTitle}">
+		<h:form id="countryEditForm">
+			<h:panelGroup id="display">
+				<p:panelGrid columns="2" rendered="#{countryController.selected!=null}">
+					<p:outputLabel value="#{bundle.EditCountryLabel_Id}" for="countryId"/>
+					<p:inputText id="countryId" value="#{countryController.selected.id}" title="#{bundle.EditCountryTitle_Id}" required="true" readonly="true" requiredMessage="#{bundle.EditCountryRequiredMessage_Id}"/>
+					<p:outputLabel value="#{bundle.EditCountryLabel_Name}" for="countryName"/>
+					<p:inputText id="countryName" value="#{countryController.selected.name}" title="#{bundle.EditCountryTitle_Name}" onblur="value=value.toUpperCase()" required="true" requiredMessage="#{bundle.EditCountryRequiredMessage_Name}"/>
+				</p:panelGrid>
+				<p:commandButton actionListener="#{countryController.update}" value="#{bundle.Update}" update="display,:countryListForm:countryDataTable,:message" oncomplete="handleSubmit(args,'countryEditDialog');"/>
+                <p:commandButton value="#{bundle.Cancel}" immediate="true" onclick="countryEditDialog.hide()"/>
+			</h:panelGroup>
+		</h:form>
+	</p:dialog>
+</ui:composition>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition>
+	<p:dialog id="brandViewDlg" widgetVar="brandViewDialog" responsive="true" resizable="false" draggable="false" modal="true" header="#{bundle.ViewBrandTitle}">
+		<h:form id="brandViewForm">
+			<h:panelGroup id="display">
+				<p:panelGrid columns="2" rendered="#{brandController.selected!=null}">
+					<h:outputText value="#{bundle.ViewBrandLabel_Id}"/>
+					<h:outputText value="#{brandController.selected.id}" title="#{bundle.ViewBrandTitle_Id}"/>
+					<h:outputText value="#{bundle.ViewBrandLabel_Name}"/>
+					<h:outputText value="#{brandController.selected.name}" title="#{bundle.ViewBrandTitle_Name}"/>
+				</p:panelGrid>
+                <p:commandButton value="#{bundle.Close}" onclick="brandViewDialog.hide()"/>
+			</h:panelGroup>
+		</h:form>
+	</p:dialog>
+</ui:composition>
+</html>

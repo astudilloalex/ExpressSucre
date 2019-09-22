@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition>
+	<p:dialog id="cityCreateDlg" widgetVar="cityCreateDialog" responsive="true" resizable="false" draggable="false" modal="true" header="#{bundle.CreateCityTitle}">
+		<h:form id="cityCreateForm">
+			<h:panelGroup id="display">
+				<p:panelGrid columns="2" rendered="#{cityController.selected!=null}">
+					<p:outputLabel value="#{bundle.CreateCityLabel_Country}" for="countryName"/>
+					<p:selectOneMenu id="countryName" value="#{cityController.selected.countryBean}" required="true" requiredMessage="#{bundle.CreateCityRequiredMessage_Country}">
+                    	<f:selectItems value="#{countryController.itemsAvailableSelectOne}" var="cityCountryItem" itemValue="#{cityCountryItem}" itemLabel="#{cityCountryItem.name}" />
+                    </p:selectOneMenu>
+					<p:outputLabel value="#{bundle.CreateCityLabel_Name}" for="cityName"/>
+					<p:inputText id="cityName" value="#{cityController.selected.name}" title="#{bundle.CreateCityTitle_Name}" onblur="value=value.toUpperCase()" required="true" requiredMessage="#{bundle.CreateCityRequiredMessage_Name}"/>
+				</p:panelGrid>
+				<p:commandButton actionListener="#{cityController.create}" value="#{bundle.Save}" update="display,:cityListForm:cityDataTable,:message" oncomplete="handleSubmit(args,'cityCreateDialog');"/>
+                <p:commandButton value="#{bundle.Cancel}" actionListener="#{cityController.unselected}" immediate="true" onclick="cityCreateDialog.hide()"/>
+			</h:panelGroup>
+		</h:form>
+	</p:dialog>
+</ui:composition>
+</html>

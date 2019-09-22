@@ -4,38 +4,37 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.List;
 
-
 /**
  * The persistent class for the bus database table.
  * 
  */
 @Entity
-@NamedQuery(name="Bus.findAll", query="SELECT b FROM Bus b")
+@NamedQuery(name = "Bus.findAll", query = "SELECT b FROM Bus b")
 public class Bus implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
 	private Integer capacity;
 
-	@Column(name="disk_number")
+	@Column(name = "disk_number")
 	private Integer diskNumber;
 
-	private String plaque;
+	private String plate;
 
-	//bi-directional many-to-one association to Brand
+	// bi-directional many-to-one association to Brand
 	@ManyToOne
-	@JoinColumn(name="brand")
+	@JoinColumn(name = "brand")
 	private Brand brandBean;
 
-	//bi-directional many-to-one association to BusSeating
-	@OneToMany(mappedBy="busBean")
-	private List<BusSeating> busSeatings;
+	// bi-directional many-to-one association to BusSeat
+	@OneToMany(mappedBy = "busBean")
+	private List<BusSeat> busSeats;
 
-	//bi-directional many-to-one association to Schedule
-	@OneToMany(mappedBy="busBean")
+	// bi-directional many-to-one association to Schedule
+	@OneToMany(mappedBy = "busBean")
 	private List<Schedule> schedules;
 
 	public Bus() {
@@ -65,12 +64,12 @@ public class Bus implements Serializable {
 		this.diskNumber = diskNumber;
 	}
 
-	public String getPlaque() {
-		return this.plaque;
+	public String getPlate() {
+		return this.plate;
 	}
 
-	public void setPlaque(String plaque) {
-		this.plaque = plaque;
+	public void setPlate(String plate) {
+		this.plate = plate;
 	}
 
 	public Brand getBrandBean() {
@@ -81,26 +80,26 @@ public class Bus implements Serializable {
 		this.brandBean = brandBean;
 	}
 
-	public List<BusSeating> getBusSeatings() {
-		return this.busSeatings;
+	public List<BusSeat> getBusSeats() {
+		return this.busSeats;
 	}
 
-	public void setBusSeatings(List<BusSeating> busSeatings) {
-		this.busSeatings = busSeatings;
+	public void setBusSeats(List<BusSeat> busSeats) {
+		this.busSeats = busSeats;
 	}
 
-	public BusSeating addBusSeating(BusSeating busSeating) {
-		getBusSeatings().add(busSeating);
-		busSeating.setBusBean(this);
+	public BusSeat addBusSeat(BusSeat busSeat) {
+		getBusSeats().add(busSeat);
+		busSeat.setBusBean(this);
 
-		return busSeating;
+		return busSeat;
 	}
 
-	public BusSeating removeBusSeating(BusSeating busSeating) {
-		getBusSeatings().remove(busSeating);
-		busSeating.setBusBean(null);
+	public BusSeat removeBusSeat(BusSeat busSeat) {
+		getBusSeats().remove(busSeat);
+		busSeat.setBusBean(null);
 
-		return busSeating;
+		return busSeat;
 	}
 
 	public List<Schedule> getSchedules() {
@@ -125,4 +124,23 @@ public class Bus implements Serializable {
 		return schedule;
 	}
 
+	@Override
+	public int hashCode() {
+		int hash = 0;
+		hash += (id != null ? id.hashCode() : 0);
+		return hash;
+	}
+
+	@Override
+	public boolean equals(Object object) {
+		// TODO: Warning - this method won't work in the case the id fields are not set
+		if (!(object instanceof Bus)) {
+			return false;
+		}
+		Bus other = (Bus) object;
+		if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+			return false;
+		}
+		return true;
+	}
 }

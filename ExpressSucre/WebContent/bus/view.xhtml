@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition>
+	<p:dialog id="busViewDlg" widgetVar="busViewDialog" responsive="true" resizable="false" draggable="false" modal="true" header="#{bundle.ViewBusTitle}">
+		<h:form id="busViewForm">
+			<h:panelGroup id="display">
+				<p:panelGrid columns="2" rendered="#{busController.selected!=null}">
+					<h:outputText value="#{bundle.ViewBusLabel_Id}"/>
+					<h:outputText value="#{busController.selected.id}" title="#{bundle.ViewBusTitle_Id}"/>
+					<h:outputText value="#{bundle.ViewBusLabel_Brand}"/>
+					<h:outputText value="#{busController.selected.brandBean.name}" title="#{bundle.ViewBusTitle_Brand}"/>
+					<h:outputText value="#{bundle.ViewBusLabel_Plate}"/>
+					<h:outputText value="#{busController.selected.plate}" title="#{bundle.ViewBusTitle_Plate}"/>
+					<h:outputText value="#{bundle.ViewBusLabel_DiskNumber}"/>
+					<h:outputText value="#{busController.selected.diskNumber}" title="#{bundle.ViewBusTitle_DiskNumber}"/>
+					<h:outputText value="#{bundle.ViewBusLabel_Capacity}"/>
+					<h:outputText value="#{busController.selected.capacity}" title="#{bundle.ViewBusTitle_Capacity}"/>
+				</p:panelGrid>
+                <p:commandButton value="#{bundle.Close}" onclick="busViewDialog.hide()"/>
+			</h:panelGroup>
+		</h:form>
+	</p:dialog>
+</ui:composition>
+</html>

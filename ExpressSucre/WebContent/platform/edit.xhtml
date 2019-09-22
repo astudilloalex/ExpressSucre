@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition>
+	<p:dialog id="platformEditDlg" widgetVar="platformEditDialog" responsive="true" resizable="false" draggable="false" modal="true" header="#{bundle.EditPlatformTitle}">
+		<h:form id="platformEditForm">
+			<h:panelGroup id="display">
+				<p:panelGrid columns="2" rendered="#{platformController.selected!=null}">
+					<p:outputLabel value="#{bundle.EditPlatformLabel_Id}" for="platformId"/>
+					<p:inputText id="platformId" value="#{platformController.selected.id}" title="#{bundle.EditPlatformTitle_Id}" required="true" readonly="true" requiredMessage="#{bundle.EditPlatformRequiredMessage_Id}"/>
+					<p:outputLabel value="#{bundle.EditPlatformLabel_Number}" for="platformNumber"/>
+					<p:inputNumber id="platformNumber" value="#{platformController.selected.number}" title="#{bundle.EditPlatformTitle_Number}" onblur="value=value.toUpperCase()" required="true" requiredMessage="#{bundle.EditPlatformRequiredMessage_Number}"/>
+				</p:panelGrid>
+				<p:commandButton actionListener="#{platformController.update}" value="#{bundle.Update}" update="display,:platformListForm:platformDataTable,:message" oncomplete="handleSubmit(args,'platformEditDialog');"/>
+                <p:commandButton value="#{bundle.Cancel}" immediate="true" onclick="platformEditDialog.hide()"/>
+			</h:panelGroup>
+		</h:form>
+	</p:dialog>
+</ui:composition>
+</html>

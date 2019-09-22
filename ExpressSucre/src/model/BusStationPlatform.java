@@ -4,33 +4,32 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.math.BigDecimal;
 
-
 /**
  * The persistent class for the bus_station_platform database table.
  * 
  */
 @Entity
-@Table(name="bus_station_platform")
-@NamedQuery(name="BusStationPlatform.findAll", query="SELECT b FROM BusStationPlatform b")
+@Table(name = "bus_station_platform")
+@NamedQuery(name = "BusStationPlatform.findAll", query = "SELECT b FROM BusStationPlatform b")
 public class BusStationPlatform implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
 	private BigDecimal amount;
 
 	private Boolean state;
 
-	//bi-directional many-to-one association to BusStation
+	// bi-directional many-to-one association to BusStation
 	@ManyToOne
-	@JoinColumn(name="bus_station")
+	@JoinColumn(name = "bus_station")
 	private BusStation busStationBean;
 
-	//bi-directional many-to-one association to Platform
+	// bi-directional many-to-one association to Platform
 	@ManyToOne
-	@JoinColumn(name="platform")
+	@JoinColumn(name = "platform")
 	private Platform platformBean;
 
 	public BusStationPlatform() {
@@ -76,4 +75,23 @@ public class BusStationPlatform implements Serializable {
 		this.platformBean = platformBean;
 	}
 
+	@Override
+	public int hashCode() {
+		int hash = 0;
+		hash += (id != null ? id.hashCode() : 0);
+		return hash;
+	}
+
+	@Override
+	public boolean equals(Object object) {
+		// TODO: Warning - this method won't work in the case the id fields are not set
+		if (!(object instanceof BusStationPlatform)) {
+			return false;
+		}
+		BusStationPlatform other = (BusStationPlatform) object;
+		if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+			return false;
+		}
+		return true;
+	}
 }

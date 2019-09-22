@@ -10,7 +10,7 @@ import model.Role;
 @Stateless
 public class RoleFacade extends AbstractFacade<Role> {
 
-	@PersistenceContext(name = "ExpressSucre")
+	@PersistenceContext(unitName = "ExpressSucre")
 	private EntityManager entityManager;
 	
 	@Override

@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition>
+	<p:dialog id="countryViewDlg" widgetVar="countryViewDialog" responsive="true" resizable="false" draggable="false" modal="true" header="#{bundle.ViewCountryTitle}">
+		<h:form id="countryViewForm">
+			<h:panelGroup id="display">
+				<p:panelGrid columns="2" rendered="#{countryController.selected!=null}">
+					<h:outputText value="#{bundle.ViewCountryLabel_Id}"/>
+					<h:outputText value="#{countryController.selected.id}" title="#{bundle.ViewCountryTitle_Id}"/>
+					<h:outputText value="#{bundle.ViewCountryLabel_Name}"/>
+					<h:outputText value="#{countryController.selected.name}" title="#{bundle.ViewCountryTitle_Name}"/>
+				</p:panelGrid>
+                <p:commandButton value="#{bundle.Close}" onclick="countryViewDialog.hide()"/>
+			</h:panelGroup>
+		</h:form>
+	</p:dialog>
+</ui:composition>
+</html>

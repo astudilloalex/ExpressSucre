@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition>
+	<p:dialog id="roleEditDlg" widgetVar="roleEditDialog" responsive="true" resizable="false" draggable="false" modal="true" header="#{bundle.EditRoleTitle}">
+		<h:form id="roleEditForm">
+			<h:panelGroup id="display">
+				<p:panelGrid columns="2" rendered="#{roleController.selected!=null}">
+					<p:outputLabel value="#{bundle.EditRoleLabel_Id}" for="roleId"/>
+					<p:inputText id="roleId" value="#{roleController.selected.id}" title="#{bundle.EditRoleTitle_Id}" required="true" readonly="true" requiredMessage="#{bundle.EditRoleRequiredMessage_Id}"/>
+					<p:outputLabel value="#{bundle.EditRoleLabel_Code}" for="roleCode"/>
+					<p:inputText id="roleCode" value="#{roleController.selected.code}" title="#{bundle.EditRoleTitle_Code}" onblur="value=value.toUpperCase()" required="true" requiredMessage="#{bundle.EditRoleRequiredMessage_Code}"/>
+					<p:outputLabel value="#{bundle.EditRoleLabel_Name}" for="roleName"/>
+					<p:inputText id="roleName" value="#{roleController.selected.name}" title="#{bundle.EditRoleTitle_Name}" onblur="value=value.toUpperCase()" required="true" requiredMessage="#{bundle.EditRoleRequiredMessage_Name}"/>
+				</p:panelGrid>
+				<p:commandButton actionListener="#{roleController.update}" value="#{bundle.Update}" update="display,:roleListForm:roleDataTable,:message" oncomplete="handleSubmit(args,'roleEditDialog');"/>
+                <p:commandButton value="#{bundle.Cancel}" immediate="true" onclick="roleEditDialog.hide()"/>
+			</h:panelGroup>
+		</h:form>
+	</p:dialog>
+</ui:composition>
+</html>

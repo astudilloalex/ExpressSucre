@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition>
+	<p:dialog id="busCreateDlg" widgetVar="busCreateDialog" responsive="true" resizable="false" draggable="false" modal="true" header="#{bundle.CreateBusTitle}">
+		<h:form id="busCreateForm">
+			<h:panelGroup id="display">
+				<p:panelGrid columns="2" rendered="#{busController.selected!=null}">
+					<p:outputLabel value="#{bundle.CreateBusLabel_Brand}" for="brandName"/>
+					<p:selectOneMenu id="brandName" value="#{busController.selected.brandBean}" required="true" requiredMessage="#{bundle.CreateBusRequiredMessage_Brand}">
+                    	<f:selectItems value="#{brandController.itemsAvailableSelectOne}" var="busBrandItem" itemValue="#{busBrandItem}" itemLabel="#{busBrandItem.name}" />
+                    </p:selectOneMenu>
+					<p:outputLabel value="#{bundle.CreateBusLabel_Plate}" for="busPlate"/>
+					<p:inputText id="busPlate" value="#{busController.selected.plate}" title="#{bundle.CreateBusTitle_Plate}" onblur="value=value.toUpperCase()" required="true" requiredMessage="#{bundle.CreateBusRequiredMessage_Plate}"/>
+					<p:outputLabel value="#{bundle.CreateBusLabel_DiskNumber}" for="busDiskNumber"/>
+					<p:inputNumber id="busDiskNumber" value="#{busController.selected.diskNumber}" title="#{bundle.CreateBusTitle_DiskNumber}" onblur="value=value.toUpperCase()" required="true" requiredMessage="#{bundle.CreateBusRequiredMessage_DiskNumber}"/>
+					<p:outputLabel value="#{bundle.CreateBusLabel_Capacity}" for="busCapacity"/>
+					<p:inputNumber id="busCapacity" value="#{busController.selected.capacity}" title="#{bundle.CreateBusTitle_Capacity}" onblur="value=value.toUpperCase()" required="true" requiredMessage="#{bundle.CreateBusRequiredMessage_Capacity}"/>
+				</p:panelGrid>
+				<p:commandButton actionListener="#{busController.create}" value="#{bundle.Save}" update="display,:busListForm:busDataTable,:message" oncomplete="handleSubmit(args,'busCreateDialog');"/>
+                <p:commandButton value="#{bundle.Cancel}" actionListener="#{busController.unselected}" immediate="true" onclick="busCreateDialog.hide()"/>
+			</h:panelGroup>
+		</h:form>
+	</p:dialog>
+</ui:composition>
+</html>

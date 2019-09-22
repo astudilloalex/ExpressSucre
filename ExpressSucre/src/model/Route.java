@@ -5,36 +5,35 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
 
-
 /**
  * The persistent class for the route database table.
  * 
  */
 @Entity
-@NamedQuery(name="Route.findAll", query="SELECT r FROM Route r")
+@NamedQuery(name = "Route.findAll", query = "SELECT r FROM Route r")
 public class Route implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
 	private BigDecimal amount;
 
 	private Boolean state;
 
-	//bi-directional many-to-one association to BusStation
+	// bi-directional many-to-one association to BusStation
 	@ManyToOne
-	@JoinColumn(name="bus_station_destination")
+	@JoinColumn(name = "bus_station_destination")
 	private BusStation busStation1;
 
-	//bi-directional many-to-one association to BusStation
+	// bi-directional many-to-one association to BusStation
 	@ManyToOne
-	@JoinColumn(name="bus_station_origin")
+	@JoinColumn(name = "bus_station_origin")
 	private BusStation busStation2;
 
-	//bi-directional many-to-one association to Schedule
-	@OneToMany(mappedBy="routeBean")
+	// bi-directional many-to-one association to Schedule
+	@OneToMany(mappedBy = "routeBean")
 	private List<Schedule> schedules;
 
 	public Route() {
@@ -102,4 +101,23 @@ public class Route implements Serializable {
 		return schedule;
 	}
 
+	@Override
+	public int hashCode() {
+		int hash = 0;
+		hash += (id != null ? id.hashCode() : 0);
+		return hash;
+	}
+
+	@Override
+	public boolean equals(Object object) {
+		// TODO: Warning - this method won't work in the case the id fields are not set
+		if (!(object instanceof Route)) {
+			return false;
+		}
+		Route other = (Route) object;
+		if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+			return false;
+		}
+		return true;
+	}
 }

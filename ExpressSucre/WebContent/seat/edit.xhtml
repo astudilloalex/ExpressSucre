@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition>
+	<p:dialog id="seatEditDlg" widgetVar="seatEditDialog" responsive="true" resizable="false" draggable="false" modal="true" header="#{bundle.EditSeatTitle}">
+		<h:form id="seatEditForm">
+			<h:panelGroup id="display">
+				<p:panelGrid columns="2" rendered="#{seatController.selected!=null}">
+					<p:outputLabel value="#{bundle.EditSeatLabel_Id}" for="seatId"/>
+					<p:inputText id="seatId" value="#{seatController.selected.id}" title="#{bundle.EditSeatTitle_Id}" required="true" readonly="true" requiredMessage="#{bundle.EditSeatRequiredMessage_Id}"/>
+					<p:outputLabel value="#{bundle.EditSeatLabel_Number}" for="seatNumber"/>
+					<p:inputNumber id="seatNumber" value="#{seatController.selected.number}" title="#{bundle.EditSeatTitle_Number}" onblur="value=value.toUpperCase()" required="true" requiredMessage="#{bundle.EditSeatRequiredMessage_Number}"/>
+				</p:panelGrid>
+				<p:commandButton actionListener="#{seatController.update}" value="#{bundle.Update}" update="display,:seatListForm:seatDataTable,:message" oncomplete="handleSubmit(args,'seatEditDialog');"/>
+                <p:commandButton value="#{bundle.Cancel}" immediate="true" onclick="seatEditDialog.hide()"/>
+			</h:panelGroup>
+		</h:form>
+	</p:dialog>
+</ui:composition>
+</html>

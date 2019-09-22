@@ -9,6 +9,10 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
+import javax.faces.convert.FacesConverter;
 import javax.inject.Named;
 
 import data.JsfUtil;
@@ -20,98 +24,157 @@ import model.Role;
 @SessionScoped
 public class RoleController implements Serializable {
 
-	/**
+    /**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	
 	@EJB
-	private RoleFacade facade;
-	private List<Role> items;
-	private Role selected;
+    private RoleFacade ejbFacade;
+    private List<Role> items = null;
+    private Role selected;
 
-	public RoleController() {
-		// TODO Auto-generated constructor stub
-	}
+    //Constructor
+    public RoleController() {
+    }
+    
+    //Inner class
+    @SuppressWarnings("rawtypes")
+	@FacesConverter(forClass = Role.class)
+    public static class RoleControllerConverter implements Converter {
 
-	private void persist(PersistAction persistAction, String successMessage) {
-		if (this.selected != null) {
-			setEmbeddableKeys();
-			try {
-				if (persistAction != PersistAction.DELETE) {
-					getFacade().edit(selected);
-				} else {
-					getFacade().remove(selected);
-				}
-				JsfUtil.addSuccessMessage(successMessage);
-			} catch (EJBException e) {
-				String msg = "";
-				Throwable cause = e.getCause();
-				if (cause != null) {
-					msg = cause.getLocalizedMessage();
-				}
-				if (msg.length() > 0) {
-					JsfUtil.addErrorMessage(msg);
-				} else {
-					JsfUtil.addErrorMessage(e,
-							ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
-				}
-			} catch (Exception e) {
-				Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, e);
-				JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
-			}
-		}
-	}
+        @Override
+        public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
+            if (value == null || value.length() == 0) {
+                return null;
+            }
+            RoleController controller = (RoleController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "roleController");
+            return controller.getRole(getKey(value));
+        }
 
-	protected void setEmbeddableKeys() {
-	}
+        java.lang.Integer getKey(String value) {
+            java.lang.Integer key;
+            key = Integer.valueOf(value);
+            return key;
+        }
 
-	protected void initializeEmbeddableKey() {
-	}
+        String getStringKey(java.lang.Integer value) {
+            StringBuilder sb = new StringBuilder();
+            sb.append(value);
+            return sb.toString();
+        }
 
-	public Role prepareCreate() {
-		this.selected = new Role();
-		this.initializeEmbeddableKey();
-		System.out.println("Prepare Create Open");
-		return this.selected;
-	}
+        @Override
+        public String getAsString(FacesContext facesContext, UIComponent component, Object object) {
+            if (object == null) {
+                return null;
+            }
+            if (object instanceof Role) {
+                Role o = (Role) object;
+                return getStringKey(o.getId());
+            } else {
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Role.class.getName()});
+                return null;
+            }
+        }
 
-	public void create() {
-		persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("RoleCreated"));
-		if (!JsfUtil.isValidationFailed()) {
-			this.items = null;
-		}
-	}
+    }
+    
+    private RoleFacade getFacade() {
+        return ejbFacade;
+    }
+    
+    private void persist(PersistAction persistAction, String successMessage) {
+        if (selected != null) {
+            setEmbeddableKeys();
+            try {
+                if (persistAction != PersistAction.DELETE) {
+                    getFacade().edit(selected);
+                } else {
+                    getFacade().remove(selected);
+                }
+                JsfUtil.addSuccessMessage(successMessage);
+            } catch (EJBException ex) {
+                String msg = "";
+                Throwable cause = ex.getCause();
+                if (cause != null) {
+                    msg = cause.getLocalizedMessage();
+                }
+                if (msg.length() > 0) {
+                    JsfUtil.addErrorMessage(msg);
+                } else {
+                    JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+                JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            }
+        }
+    }
 
-	public void update() {
-		persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("RoleUpdated"));
-	}
+    protected void setEmbeddableKeys() {
+    }
 
-	public void destroy() {
-		persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("RoleDeleted"));
-		if (!JsfUtil.isValidationFailed()) {
-			this.selected = null;
-			this.items = null;
-		}
-	}
+    protected void initializeEmbeddableKey() {
+    }
 
-	// Getters and setters
-	public RoleFacade getFacade() {
-		return this.facade;
-	}
+    public Role prepareCreate() {
+        selected = new Role();
+        initializeEmbeddableKey();
+        return selected;
+    }
 
-	public List<Role> getItems() {
-		if (this.items == null) {
-			this.items = getFacade().findAll();
-		}
-		return this.items;
-	}
+    public void create() {
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("RoleCreated"));
+        if (!JsfUtil.isValidationFailed()) {
+            items = null;    // Invalidate list of items to trigger re-query.
+        }
+        unselected();
+    }
 
-	public Role getSelected() {
-		return this.selected;
-	}
+    public void update() {
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("RoleUpdated"));
+        unselected();
+    }
 
-	public void setSelected(Role selected) {
-		this.selected = selected;
-	}
+    public void destroy() {
+        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("RoleDeleted"));
+        if (!JsfUtil.isValidationFailed()) {
+            selected = null; // Remove selection
+            items = null;    // Invalidate list of items to trigger re-query.
+        }
+    }
+    
+    public void unselected() {
+    	this.selected=null;
+    }
+    
+    //Getters And Setters
+    public Role getSelected() {
+        return selected;
+    }
+
+    public void setSelected(Role selected) {
+        this.selected = selected;
+    }
+    
+    public List<Role> getItems() {
+        if (items == null) {
+            items = getFacade().findAll();
+        }
+        return items;
+    }
+    
+    public Role getRole(java.lang.Integer id) {
+        return getFacade().find(id);
+    }
+
+    public List<Role> getItemsAvailableSelectMany() {
+        return getFacade().findAll();
+    }
+
+    public List<Role> getItemsAvailableSelectOne() {
+        return getFacade().findAll();
+    }
 }

@@ -4,38 +4,37 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.List;
 
-
 /**
  * The persistent class for the bus_station database table.
  * 
  */
 @Entity
-@Table(name="bus_station")
-@NamedQuery(name="BusStation.findAll", query="SELECT b FROM BusStation b")
+@Table(name = "bus_station")
+@NamedQuery(name = "BusStation.findAll", query = "SELECT b FROM BusStation b")
 public class BusStation implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
 	private String name;
 
-	//bi-directional many-to-one association to City
+	// bi-directional many-to-one association to City
 	@ManyToOne
-	@JoinColumn(name="city")
+	@JoinColumn(name = "city")
 	private City cityBean;
 
-	//bi-directional many-to-one association to BusStationPlatform
-	@OneToMany(mappedBy="busStationBean")
+	// bi-directional many-to-one association to BusStationPlatform
+	@OneToMany(mappedBy = "busStationBean")
 	private List<BusStationPlatform> busStationPlatforms;
 
-	//bi-directional many-to-one association to Route
-	@OneToMany(mappedBy="busStation1")
+	// bi-directional many-to-one association to Route
+	@OneToMany(mappedBy = "busStation1")
 	private List<Route> routes1;
 
-	//bi-directional many-to-one association to Route
-	@OneToMany(mappedBy="busStation2")
+	// bi-directional many-to-one association to Route
+	@OneToMany(mappedBy = "busStation2")
 	private List<Route> routes2;
 
 	public BusStation() {
@@ -131,4 +130,23 @@ public class BusStation implements Serializable {
 		return routes2;
 	}
 
+	@Override
+	public int hashCode() {
+		int hash = 0;
+		hash += (id != null ? id.hashCode() : 0);
+		return hash;
+	}
+
+	@Override
+	public boolean equals(Object object) {
+		// TODO: Warning - this method won't work in the case the id fields are not set
+		if (!(object instanceof BusStation)) {
+			return false;
+		}
+		BusStation other = (BusStation) object;
+		if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+			return false;
+		}
+		return true;
+	}
 }

@@ -11,15 +11,15 @@
 		<h:form id="roleCreateForm">
 			<h:panelGroup id="display">
 				<p:panelGrid columns="2" rendered="#{roleController.selected!=null}">
-					<p:outputLabel value="#{bundle.CreateRoleLabel_Id}" for="roleId"/>
-					<p:inputText id="roleId" value="#{roleController.selected.id}" title="#{bundle.CreateRoleTitle_Id}" required="true" requiredMessage="#{bundle.CreateRoleRequiredMessage_Id}"/>
 					<p:outputLabel value="#{bundle.CreateRoleLabel_Code}" for="roleCode"/>
-					<p:inputText id="roleCode" value="#{roleController.selected.code}" title="#{bundle.CreateRoleTitle_Code}" required="true" requiredMessage="#{bundle.CreateRoleRequiredMessage_Code}"/>
+					<p:inputText id="roleCode" value="#{roleController.selected.code}" title="#{bundle.CreateRoleTitle_Code}" onblur="value=value.toUpperCase()" required="true" requiredMessage="#{bundle.CreateRoleRequiredMessage_Code}">
+						<f:validateLength minimum="3" maximum="3" />
+					</p:inputText>
 					<p:outputLabel value="#{bundle.CreateRoleLabel_Name}" for="roleName"/>
-					<p:inputText id="roleName" value="#{roleController.selected.name}" title="#{bundle.CreateRoleTitle_Name}" required="true" requiredMessage="#{bundle.CreateRoleRequiredMessage_Name}"/>
+					<p:inputText id="roleName" value="#{roleController.selected.name}" title="#{bundle.CreateRoleTitle_Name}" onblur="value=value.toUpperCase()" required="true" requiredMessage="#{bundle.CreateRoleRequiredMessage_Name}"/>
 				</p:panelGrid>
-				<p:commandButton actionListener="#{roleController.create}" value="#{bundle.Save}" update="display,:roleListForm:roleDataTable" oncomplete="handleSubmit(args,'roleCreateDialog');"/>
-                <p:commandButton value="#{bundle.Cancel}" onclick="roleCreateDialog.hide()"/>
+				<p:commandButton actionListener="#{roleController.create}" value="#{bundle.Save}" update="display,:roleListForm:roleDataTable,:message" oncomplete="handleSubmit(args,'roleCreateDialog');"/>
+                <p:commandButton value="#{bundle.Cancel}" actionListener="#{roleController.unselected}" immediate="true" onclick="roleCreateDialog.hide()"/>
 			</h:panelGroup>
 		</h:form>
 	</p:dialog>

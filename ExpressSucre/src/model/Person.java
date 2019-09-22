@@ -4,39 +4,38 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.List;
 
-
 /**
  * The persistent class for the person database table.
  * 
  */
 @Entity
-@NamedQuery(name="Person.findAll", query="SELECT p FROM Person p")
+@NamedQuery(name = "Person.findAll", query = "SELECT p FROM Person p")
 public class Person implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
 	private String address;
 
-	@Column(name="first_name")
+	@Column(name = "first_name")
 	private String firstName;
 
-	@Column(name="id_card")
+	@Column(name = "id_card")
 	private String idCard;
 
-	@Column(name="last_name")
+	@Column(name = "last_name")
 	private String lastName;
 
 	private String phone;
 
-	//bi-directional many-to-one association to Reservation
-	@OneToMany(mappedBy="personBean")
+	// bi-directional many-to-one association to Reservation
+	@OneToMany(mappedBy = "personBean")
 	private List<Reservation> reservations;
 
-	//bi-directional many-to-one association to User
-	@OneToMany(mappedBy="personBean")
+	// bi-directional many-to-one association to User
+	@OneToMany(mappedBy = "personBean")
 	private List<User> users;
 
 	public Person() {
@@ -134,4 +133,23 @@ public class Person implements Serializable {
 		return user;
 	}
 
+	@Override
+	public int hashCode() {
+		int hash = 0;
+		hash += (id != null ? id.hashCode() : 0);
+		return hash;
+	}
+
+	@Override
+	public boolean equals(Object object) {
+		// TODO: Warning - this method won't work in the case the id fields are not set
+		if (!(object instanceof Person)) {
+			return false;
+		}
+		Person other = (Person) object;
+		if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+			return false;
+		}
+		return true;
+	}
 }
