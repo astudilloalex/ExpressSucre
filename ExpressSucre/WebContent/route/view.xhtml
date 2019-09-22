@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition>
+	<p:dialog id="routeViewDlg" widgetVar="routeViewDialog" responsive="true" resizable="false" draggable="false" modal="true" header="#{bundle.ViewRouteTitle}">
+		<h:form id="routeViewForm">
+			<h:panelGroup id="display">
+				<p:panelGrid columns="2" rendered="#{routeController.selected!=null}">
+					<h:outputText value="#{bundle.ViewRouteLabel_Id}"/>
+					<h:outputText value="#{routeController.selected.id}" title="#{bundle.ViewRouteTitle_Id}"/>
+					<h:outputText value="#{bundle.ViewRouteLabel_BusStationOrigin}"/>
+					<h:outputText value="#{routeController.selected.busStation1.name}" title="#{bundle.ViewRouteTitle_BusStationOrigin}"/>
+					<h:outputText value="#{bundle.ViewRouteLabel_BusStationDestination}"/>
+					<h:outputText value="#{routeController.selected.busStation2.name}" title="#{bundle.ViewRouteTitle_BusStationDestination}"/>
+					<h:outputText value="#{bundle.ViewRouteLabel_Amount}"/>
+					<h:outputText value="#{routeController.selected.amount}" title="#{bundle.ViewRouteTitle_Amount}"/>
+					<h:outputText value="#{bundle.ViewRouteLabel_State}"/>
+					<p:selectBooleanCheckbox value="#{routeController.selected.state}" title="#{bundle.ViewRouteTitle_State}" disabled="true"/>
+				</p:panelGrid>
+                <p:commandButton value="#{bundle.Close}" onclick="routeViewDialog.hide()"/>
+			</h:panelGroup>
+		</h:form>
+	</p:dialog>
+</ui:composition>
+</html>
