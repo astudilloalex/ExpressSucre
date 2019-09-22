@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition>
+	<p:dialog id="busSeatEditDlg" widgetVar="busSeatEditDialog" responsive="true" resizable="false" draggable="false" modal="true" header="#{bundle.EditBusSeatTitle}">
+		<h:form id="busSeatEditForm">
+			<h:panelGroup id="display">
+				<p:panelGrid columns="2" rendered="#{busSeatController.selected!=null}">
+					<p:outputLabel value="#{bundle.EditBusSeatLabel_Id}" for="busSeatId"/>
+					<p:inputText id="busSeatId" value="#{busSeatController.selected.id}" title="#{bundle.EditBusSeatTitle_Id}" readonly="true" required="true" requiredMessage="#{bundle.EditBusSeatRequiredMessage_Id}"/>
+					<p:outputLabel value="#{bundle.EditBusSeatLabel_Bus}" for="busPlate"/>
+					<p:selectOneMenu id="busPlate" value="#{busSeatController.selected.busBean}" required="true" requiredMessage="#{bundle.EditBusSeatRequiredMessage_Bus}">
+                    	<f:selectItems value="#{busController.itemsAvailableSelectOne}" var="busSeatBusItem" itemValue="#{busSeatBusItem}" itemLabel="#{busSeatBusItem.plate}" />
+                    </p:selectOneMenu>                    
+                    <p:outputLabel value="#{bundle.EditBusSeatLabel_Seat}" for="seatNumber"/>
+					<p:selectOneMenu id="seatNumber" value="#{busSeatController.selected.seatBean}" required="true" requiredMessage="#{bundle.EditBusSeatRequiredMessage_Seat}">
+                    	<f:selectItems value="#{seatController.itemsAvailableSelectOne}" var="busSeatSeatItem" itemValue="#{busSeatSeatItem}" itemLabel="#{busSeatSeatItem.number}" />
+                    </p:selectOneMenu>                    
+					<p:outputLabel value="#{bundle.EditBusSeatLabel_Location}" for="busSeatLocation"/>
+					<p:selectOneMenu id="busSeatLocation" value="#{busSeatController.selected.location}" required="true" requiredMessage="#{bundle.EditBusSeatRequiredMessage_Location}">
+						<f:selectItem value="#{bundle.BusSeatLocation_Window}" itemLabel="#{bundle.BusSeatLocation_Window}"/>
+						<f:selectItem value="#{bundle.BusSeatLocation_Hall}" itemLabel="#{bundle.BusSeatLocation_Hall}"/>
+					</p:selectOneMenu>
+					<p:outputLabel value="#{bundle.EditBusSeatLabel_State}" for="busSeatState"/>
+					<p:selectBooleanCheckbox id="busSeatState" value="#{busSeatController.selected.state}" title="#{bundle.EditBusSeatTitle_State}" required="true" requiredMessage="#{bundle.EditBusSeatRequiredMessage_State}"/>
+				</p:panelGrid>
+				<p:commandButton actionListener="#{busSeatController.update}" value="#{bundle.Save}" update="display,:busSeatListForm:busSeatDataTable,:message" oncomplete="handleSubmit(args,'busSeatEditDialog');"/>
+                <p:commandButton value="#{bundle.Cancel}" actionListener="#{busSeatController.unselected}" immediate="true" onclick="busSeatEditDialog.hide()"/>
+			</h:panelGroup>
+		</h:form>
+	</p:dialog>
+</ui:composition>
+</html>
