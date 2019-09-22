@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition>
+	<p:dialog id="userCreateDlg" widgetVar="userCreateDialog" responsive="true" resizable="false" draggable="false" modal="true" header="#{bundle.CreateUserTitle}">
+		<h:form id="userCreateForm">
+			<h:panelGroup id="display">
+				<p:panelGrid columns="2" rendered="#{userController.selected!=null}">
+					<p:outputLabel value="#{bundle.CreateUserLabel_Person}" for="personIdCard"/>
+					<p:selectOneMenu id="personIdCard" value="#{userController.selected.personBean}" required="true" requiredMessage="#{bundle.CreateUserRequiredMessage_Person}">
+                    	<f:selectItems value="#{personController.itemsAvailableSelectOne}" var="userPersonItem" itemValue="#{userPersonItem}" itemLabel="#{userPersonItem.idCard}" />
+                    </p:selectOneMenu>
+                    <p:outputLabel value="#{bundle.CreateUserLabel_Role}" for="roleName"/>
+                    <p:selectOneMenu id="roleName" value="#{userController.selected.roleBean}" required="true" requiredMessage="#{bundle.CreateUserRequiredMessage_Role}">
+                    	<f:selectItems value="#{roleController.itemsAvailableSelectOne}" var="userRoleItem" itemValue="#{userRoleItem}" itemLabel="#{userRoleItem.name}" />
+                    </p:selectOneMenu>
+					<p:outputLabel value="#{bundle.CreateUserLabel_UserName}" for="userName"/>
+					<p:inputText id="userName" value="#{userController.selected.username}" title="#{bundle.CreateUserTitle_UserName}" required="true" requiredMessage="#{bundle.CreateUserRequiredMessage_UserName}"/>
+					<p:outputLabel value="#{bundle.CreateUserLabel_Password}" for="userPassword"/>
+					<p:password id="userPassword" value="#{userController.selected.password}" title="#{bundle.CreateUserTitle_Password}" required="true" requiredMessage="#{bundle.CreateUserRequiredMessage_Password}"/>
+				</p:panelGrid>
+				<p:commandButton actionListener="#{userController.create}" value="#{bundle.Save}" update="display,:userListForm:userDataTable,:message" oncomplete="handleSubmit(args,'userCreateDialog');"/>
+                <p:commandButton value="#{bundle.Cancel}" actionListener="#{userController.unselected}" immediate="true" onclick="userCreateDialog.hide()"/>
+			</h:panelGroup>
+		</h:form>
+	</p:dialog>
+</ui:composition>
+</html>

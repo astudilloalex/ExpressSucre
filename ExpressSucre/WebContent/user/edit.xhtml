@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition>
+	<p:dialog id="userEditDlg" widgetVar="userEditDialog" responsive="true" resizable="false" draggable="false" modal="true" header="#{bundle.EditUserTitle}">
+		<h:form id="userEditForm">
+			<h:panelGroup id="display">
+				<p:panelGrid columns="2" rendered="#{userController.selected!=null}">
+					<p:outputLabel value="#{bundle.EditUserLabel_Id}" for="userId"/>
+					<p:inputText id="userId" value="#{userController.selected.id}" title="#{bundle.EditUserTitle_Id}" readonly="true" required="true" requiredMessage="#{bundle.EditUserRequiredMessage_Id}"/>
+					<p:outputLabel value="#{bundle.EditUserLabel_Person}" for="personIdCard"/>
+					<p:selectOneMenu id="personIdCard" value="#{userController.selected.personBean}" required="true" requiredMessage="#{bundle.EditUserRequiredMessage_Person}">
+                    	<f:selectItems value="#{personController.itemsAvailableSelectOne}" var="userPersonItem" itemValue="#{userPersonItem}" itemLabel="#{userPersonItem.idCard}" />
+                    </p:selectOneMenu>
+                    <p:outputLabel value="#{bundle.EditUserLabel_Role}" for="roleName"/>
+                    <p:selectOneMenu id="roleName" value="#{userController.selected.roleBean}" required="true" requiredMessage="#{bundle.EditUserRequiredMessage_Role}">
+                    	<f:selectItems value="#{roleController.itemsAvailableSelectOne}" var="userRoleItem" itemValue="#{userRoleItem}" itemLabel="#{userRoleItem.name}" />
+                    </p:selectOneMenu>
+					<p:outputLabel value="#{bundle.EditUserLabel_UserName}" for="userName"/>
+					<p:inputText id="userName" value="#{userController.selected.username}" title="#{bundle.EditUserTitle_UserName}" required="true" requiredMessage="#{bundle.EditUserRequiredMessage_UserName}"/>
+					<p:outputLabel value="#{bundle.EditUserLabel_Password}" for="userPassword"/>
+					<p:password id="userPassword" value="#{userController.selected.password}" title="#{bundle.EditUserTitle_Password}" required="true" requiredMessage="#{bundle.EditUserRequiredMessage_Password}"/>
+				</p:panelGrid>
+				<p:commandButton actionListener="#{userController.create}" value="#{bundle.Save}" update="display,:userListForm:userDataTable,:message" oncomplete="handleSubmit(args,'userEditDialog');"/>
+                <p:commandButton value="#{bundle.Cancel}" actionListener="#{userController.unselected}" immediate="true" onclick="userEditDialog.hide()"/>
+			</h:panelGroup>
+		</h:form>
+	</p:dialog>
+</ui:composition>
+</html>

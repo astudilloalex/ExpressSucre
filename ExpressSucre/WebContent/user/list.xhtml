@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template.xhtml">
+	<ui:define name="title">
+	    <h:outputText value="#{bundle.ListUserTitle}"></h:outputText>
+	</ui:define>
+	<ui:define name="content">
+	    <h:form id="userListForm">
+	    	<p:dataTable id="userDataTable" var="item" value="#{userController.items}" selectionMode="single" selection="#{userController.selected}" rowKey="#{item.id}" reflow="true" rows="10" paginator="true" widgetVar="userTableVar">
+	    		<p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+	    		<p:column headerText="#{bundle.ListUserTitle_Id}">
+	    			<h:outputText value="#{item.id}"/>
+	    		</p:column>
+	    		<p:column headerText="#{bundle.ListUserTitle_Person}">
+	    			<h:outputText value="#{item.personBean.idCard}"/>
+	    		</p:column>
+	    		<p:column headerText="#{bundle.ListUserTitle_Role}">
+	    			<h:outputText value="#{item.roleBean.name}"/>
+	    		</p:column>
+	    		<p:column headerText="#{bundle.ListUserTitle_UserName}">
+	    			<h:outputText value="#{item.username}"/>
+	    		</p:column>
+	    		<p:column headerText="#{bundle.ListUserTitle_Password}">
+	    			<h:outputText value="#{item.password}"/>
+	    		</p:column>
+	    		<f:facet name="footer">
+	    			<p:commandButton id="createButton" icon="ui-icon-plus" value="#{bundle.Create}" actionListener="#{userController.prepareCreate}" update=":userCreateForm" oncomplete="PF('userCreateDialog').show()"/>
+	    			<p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":userViewForm" oncomplete="PF('userViewDialog').show()" disabled="#{empty userController.selected}"/>
+                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":userEditForm" oncomplete="PF('userEditDialog').show()" disabled="#{empty userController.selected}"/>
+                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{userController.destroy}" update=":message,userDataTable" disabled="#{empty userController.selected}">
+                    	<p:confirm header="#{bundle.Delete}" message="#{bundle.DeleteQuestionMessage}" icon="fa fa-fw fa-exclamation-triangle"/>
+                    </p:commandButton>
+	    		</f:facet>
+	    	</p:dataTable>
+	    	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade"
+				responsive="true">
+				<p:commandButton value="#{bundle.YesOption}" type="button"
+					update=":userDataTable" styleClass="ui-confirmdialog-yes"
+					icon="fa fa-fw fa-check" />
+				<p:commandButton value="#{bundle.NoOption}" type="button"
+					styleClass="ui-confirmdialog-no" icon="fa fa-fw fa-close" />
+			</p:confirmDialog>
+	    </h:form>
+	    <ui:include src="create.xhtml"/>
+	    <ui:include src="edit.xhtml"/>
+        <ui:include src="view.xhtml"/>
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition>
+	<p:dialog id="userViewDlg" widgetVar="userViewDialog" responsive="true" resizable="false" draggable="false" modal="true" header="#{bundle.ViewUserTitle}">
+		<h:form id="userViewForm">
+			<h:panelGroup id="display">
+				<p:panelGrid columns="2" rendered="#{userController.selected!=null}">
+					<h:outputText value="#{bundle.ViewUserLabel_Id}"/>
+					<h:outputText value="#{userController.selected.id}" title="#{bundle.ViewUserTitle_Id}"/>
+					<h:outputText value="#{bundle.ViewUserLabel_Person}"/>
+					<h:outputText value="#{userController.selected.personBean.idCard}" title="#{bundle.ViewUserTitle_Person}"/>
+					<h:outputText value="#{bundle.ViewUserLabel_Role}"/>
+					<h:outputText value="#{userController.selected.roleBean.name}" title="#{bundle.ViewUserTitle_Role}"/>
+					<h:outputText value="#{bundle.ViewUserLabel_UserName}"/>
+					<h:outputText value="#{userController.selected.username}" title="#{bundle.ViewUserTitle_UserName}"/>
+					<h:outputText value="#{bundle.ViewUserLabel_Password}"/>
+					<h:outputText value="#{userController.selected.password}" title="#{bundle.ViewUserTitle_Password}"/>
+				</p:panelGrid>
+                <p:commandButton value="#{bundle.Close}" onclick="userViewDialog.hide()"/>
+			</h:panelGroup>
+		</h:form>
+	</p:dialog>
+</ui:composition>
+</html>
