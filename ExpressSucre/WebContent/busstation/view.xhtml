@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition>
+	<p:dialog id="busStationViewDlg" widgetVar="busStationViewDialog" responsive="true" resizable="false" draggable="false" modal="true" header="#{bundle.ViewBusStationTitle}">
+		<h:form id="busStationViewForm">
+			<h:panelGroup id="display">
+				<p:panelGrid columns="2" rendered="#{busStationController.selected!=null}">
+					<h:outputText value="#{bundle.ViewBusStationLabel_Id}"/>
+					<h:outputText value="#{busStationController.selected.id}" title="#{bundle.ViewBusStationTitle_Id}"/>
+					<h:outputText value="#{bundle.ViewBusStationLabel_City}"/>
+					<h:outputText value="#{busStationController.selected.cityBean.name}" title="#{bundle.ViewBusStationTitle_City}"/>
+					<h:outputText value="#{bundle.ViewBusStationLabel_Name}"/>
+					<h:outputText value="#{busStationController.selected.name}" title="#{bundle.ViewBusStationTitle_Name}"/>
+				</p:panelGrid>
+                <p:commandButton value="#{bundle.Close}" onclick="busStationViewDialog.hide()"/>
+			</h:panelGroup>
+		</h:form>
+	</p:dialog>
+</ui:composition>
+</html>

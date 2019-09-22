@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition>
+	<p:dialog id="busStationCreateDlg" widgetVar="busStationCreateDialog" responsive="true" resizable="false" draggable="false" modal="true" header="#{bundle.CreateBusStationTitle}">
+		<h:form id="busStationCreateForm">
+			<h:panelGroup id="display">
+				<p:panelGrid columns="2" rendered="#{busStationController.selected!=null}">
+					<p:outputLabel value="#{bundle.CreateBusStationLabel_City}" for="cityName"/>
+					<p:selectOneMenu id="cityName" value="#{busStationController.selected.cityBean}" required="true" requiredMessage="#{bundle.CreateBusStationRequiredMessage_City}">
+                    	<f:selectItems value="#{cityController.itemsAvailableSelectOne}" var="busStationCityItem" itemValue="#{busStationCityItem}" itemLabel="#{busStationCityItem.name}" />
+                    </p:selectOneMenu>
+					<p:outputLabel value="#{bundle.CreateBusStationLabel_Name}" for="busStationName"/>
+					<p:inputText id="busStationName" value="#{busStationController.selected.name}" title="#{bundle.CreateBusStationTitle_Name}" onblur="value=value.toUpperCase()" required="true" requiredMessage="#{bundle.CreateBusStationRequiredMessage_Name}"/>
+				</p:panelGrid>
+				<p:commandButton actionListener="#{busStationController.create}" value="#{bundle.Save}" update="display,:busStationListForm:busStationDataTable,:message" oncomplete="handleSubmit(args,'busStationCreateDialog');"/>
+                <p:commandButton value="#{bundle.Cancel}" actionListener="#{busStationController.unselected}" immediate="true" onclick="busStationCreateDialog.hide()"/>
+			</h:panelGroup>
+		</h:form>
+	</p:dialog>
+</ui:composition>
+</html>
