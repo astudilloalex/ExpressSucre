@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition>
+	<p:dialog id="personCreateDlg" widgetVar="personCreateDialog" responsive="true" resizable="false" draggable="false" modal="true" header="#{bundle.CreatePersonTitle}">
+		<h:form id="personCreateForm">
+			<h:panelGroup id="display">
+				<p:panelGrid columns="2" rendered="#{personController.selected!=null}">
+					<p:outputLabel value="#{bundle.CreatePersonLabel_IdCard" for="personIdCard"/>
+					<p:inputText id="personIdCard" value="#{personController.selected.idCard}" title="#{bundle.CreatePersonTitle_IdCard}" onblur="value=value.toUpperCase()" required="true" requiredMessage="#{bundle.CreatePersonRequiredMessage_IdCard}"/>	
+					<p:outputLabel value="#{bundle.CreatePersonLabel_FirstName}" for="personFirstName"/>
+					<p:inputText id="personFirstName" value="#{personController.selected.firstName}" title="#{bundle.CreatePersonTitle_FirstName}" onblur="value=value.toUpperCase()" required="true" requiredMessage="#{bundle.CreatePersonRequiredMessage_FirstName}"/>
+					<p:outputLabel value="#{bundle.CreatePersonLabel_LastName}" for="personLastName"/>
+					<p:inputText id="personLastName" value="#{personController.selected.lastName}" title="#{bundle.CreatePersonTitle_LastName}" onblur="value=value.toUpperCase()" required="true" requiredMessage="#{bundle.CreatePersonRequiredMessage_LastName}"/>				
+					<p:outputLabel value="#{bundle.CreatePersonLabel_Address}" for="personAddress"/>
+					<p:inputText id="personAddress" value="#{personController.selected.address}" title="#{bundle.CreatePersonTitle_Address}" onblur="value=value.toUpperCase()" required="true" requiredMessage="#{bundle.CreatePersonRequiredMessage_Address}"/>				
+					<p:outputLabel value="#{bundle.CreatePersonLabel_Phone}" for="personPhone"/>
+					<p:inputText id="personPhone" value="#{personController.selected.phone}" title="#{bundle.CreatePersonTitle_Phone}" onblur="value=value.toUpperCase()" required="true" requiredMessage="#{bundle.CreatePersonRequiredMessage_Phone}"/>
+				</p:panelGrid>
+				<p:commandButton actionListener="#{personController.create}" value="#{bundle.Save}" update="display,:personListForm:personDataTable,:message" oncomplete="handleSubmit(args,'personCreateDialog');"/>
+                <p:commandButton value="#{bundle.Cancel}" actionListener="#{personController.unselected}" immediate="true" onclick="personCreateDialog.hide()"/>
+			</h:panelGroup>
+		</h:form>
+	</p:dialog>
+</ui:composition>
+</html>

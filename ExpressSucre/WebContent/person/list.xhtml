@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template.xhtml">
+	<ui:define name="title">
+	    <h:outputText value="#{bundle.ListPersonTitle}"></h:outputText>
+	</ui:define>
+	<ui:define name="content">
+	    <h:form id="personListForm">
+	    	<p:dataTable id="personDataTable" var="item" value="#{personController.items}" selectionMode="single" selection="#{personController.selected}" rowKey="#{item.id}" reflow="true" rows="10" paginator="true" widgetVar="personTableVar">
+	    		<p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+	    		<p:column headerText="#{bundle.ListPersonTitle_Id}">
+	    			<h:outputText value="#{item.id}"/>
+	    		</p:column>
+	    		<p:column headerText="#{bundle.ListPersonTitle_IdCard}">
+	    			<h:outputText value="#{item.idCard}"/>
+	    		</p:column>
+	    		<p:column headerText="#{bundle.ListPersonTitle_FirstName}">
+	    			<h:outputText value="#{item.firstName}"/>
+	    		</p:column>
+	    		<p:column headerText="#{bundle.ListPersonTitle_LastName}">
+	    			<h:outputText value="#{item.lastName}"/>
+	    		</p:column>
+	    		<p:column headerText="#{bundle.ListPersonTitle_Address}">
+	    			<h:outputText value="#{item.address}"/>
+	    		</p:column>
+	    		<p:column headerText="#{bundle.ListPersonTitle_Phone}">
+	    			<h:outputText value="#{item.phone}"/>
+	    		</p:column>
+	    		<f:facet name="footer">
+	    			<p:commandButton id="createButton" icon="ui-icon-plus" value="#{bundle.Create}" actionListener="#{personController.prepareCreate}" update=":personCreateForm" oncomplete="PF('personCreateDialog').show()"/>
+	    			<p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":personViewForm" oncomplete="PF('personViewDialog').show()" disabled="#{empty personController.selected}"/>
+                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":personEditForm" oncomplete="PF('personEditDialog').show()" disabled="#{empty personController.selected}"/>
+                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{personController.destroy}" update=":message,personDataTable" disabled="#{empty personController.selected}">
+                    	<p:confirm header="#{bundle.Delete}" message="#{bundle.DeleteQuestionMessage}" icon="fa fa-fw fa-exclamation-triangle"/>
+                    </p:commandButton>
+	    		</f:facet>
+	    	</p:dataTable>
+	    	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade"
+				responsive="true">
+				<p:commandButton value="#{bundle.YesOption}" type="button"
+					update=":personDataTable" styleClass="ui-confirmdialog-yes"
+					icon="fa fa-fw fa-check" />
+				<p:commandButton value="#{bundle.NoOption}" type="button"
+					styleClass="ui-confirmdialog-no" icon="fa fa-fw fa-close" />
+			</p:confirmDialog>
+	    </h:form>
+	    <ui:include src="create.xhtml"/>
+	    <ui:include src="edit.xhtml"/>
+        <ui:include src="view.xhtml"/>
+	</ui:define>
+</ui:composition>
+</html>

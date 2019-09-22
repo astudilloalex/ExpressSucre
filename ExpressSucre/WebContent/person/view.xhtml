@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition>
+	<p:dialog id="personViewDlg" widgetVar="personViewDialog" responsive="true" resizable="false" draggable="false" modal="true" header="#{bundle.ViewPersonTitle}">
+		<h:form id="personViewForm">
+			<h:panelGroup id="display">
+				<p:panelGrid columns="2" rendered="#{personController.selected!=null}">
+					<h:outputText value="#{bundle.ViewPersonLabel_Id}"/>
+					<h:outputText value="#{personController.selected.id}" title="#{bundle.ViewPersonTitle_Id}"/>
+					<h:outputText value="#{bundle.ViewPersonLabel_IdCard}"/>
+					<h:outputText value="#{personController.selected.idCard}" title="#{bundle.ViewPersonTitle_IdCard}"/>
+					<h:outputText value="#{bundle.ViewPersonLabel_FirstName}"/>
+					<h:outputText value="#{personController.selected.firstName}" title="#{bundle.ViewPersonTitle_FirstName}"/>
+					<h:outputText value="#{bundle.ViewPersonLabel_LastName}"/>
+					<h:outputText value="#{personController.selected.lastName}" title="#{bundle.ViewPersonTitle_LastName}"/>
+					<h:outputText value="#{bundle.ViewPersonLabel_Address}"/>
+					<h:outputText value="#{personController.selected.address}" title="#{bundle.ViewPersonTitle_Address}"/>
+					<h:outputText value="#{bundle.ViewPersonLabel_Phone}"/>
+					<h:outputText value="#{personController.selected.phone}" title="#{bundle.ViewPersonTitle_Phone}"/>
+				</p:panelGrid>
+                <p:commandButton value="#{bundle.Close}" onclick="personViewDialog.hide()"/>
+			</h:panelGroup>
+		</h:form>
+	</p:dialog>
+</ui:composition>
+</html>
