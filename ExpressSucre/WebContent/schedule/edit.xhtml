@@ -22,7 +22,7 @@
                     	<f:selectItems value="#{busController.itemsAvailableSelectOne}" var="scheduleBusItem" itemValue="#{scheduleBusItem}" itemLabel="#{scheduleBusItem.plate}" />
                     </p:selectOneMenu>                    
 					<p:outputLabel value="#{bundle.EditScheduleLabel_Date}" for="scheduleDate"/>
-					<p:calendar id="scheduleDate" value="#{scheduleController.selected.date}" title="#{bundle.EditScheduleTitle_Date}" required="true" requiredMessage="#{bundle.EditScheduleRequiredMessage_Date}" pattern="MM/dd/yyyy HH:mm:ss"/>
+					<p:calendar id="scheduleDate" value="#{scheduleController.scheduleDate}" title="#{bundle.EditScheduleTitle_Date}" required="true" requiredMessage="#{bundle.EditScheduleRequiredMessage_Date}" pattern="MM/dd/yyyy HH:mm:ss"/>
 				</p:panelGrid>
 				<p:commandButton actionListener="#{scheduleController.update}" value="#{bundle.Save}" update="display,:scheduleListForm:scheduleDataTable,:message" oncomplete="handleSubmit(args,'scheduleEditDialog');"/>
                 <p:commandButton value="#{bundle.Cancel}" actionListener="#{scheduleController.unselected}" immediate="true" onclick="scheduleEditDialog.hide()"/>

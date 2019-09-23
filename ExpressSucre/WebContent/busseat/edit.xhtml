@@ -23,8 +23,8 @@
                     </p:selectOneMenu>                    
 					<p:outputLabel value="#{bundle.EditBusSeatLabel_Location}" for="busSeatLocation"/>
 					<p:selectOneMenu id="busSeatLocation" value="#{busSeatController.selected.location}" required="true" requiredMessage="#{bundle.EditBusSeatRequiredMessage_Location}">
-						<f:selectItem value="#{bundle.BusSeatLocation_Window}" itemLabel="#{bundle.BusSeatLocation_Window}"/>
-						<f:selectItem value="#{bundle.BusSeatLocation_Hall}" itemLabel="#{bundle.BusSeatLocation_Hall}"/>
+						<f:selectItem itemValue="#{bundle.BusSeatLocation_Window}" itemLabel="#{bundle.BusSeatLocation_Window}"/>
+						<f:selectItem itemValue="#{bundle.BusSeatLocation_Hall}" itemLabel="#{bundle.BusSeatLocation_Hall}"/>
 					</p:selectOneMenu>
 					<p:outputLabel value="#{bundle.EditBusSeatLabel_State}" for="busSeatState"/>
 					<p:selectBooleanCheckbox id="busSeatState" value="#{busSeatController.selected.state}" title="#{bundle.EditBusSeatTitle_State}" required="true" requiredMessage="#{bundle.EditBusSeatRequiredMessage_State}"/>

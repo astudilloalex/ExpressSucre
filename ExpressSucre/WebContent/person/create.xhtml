@@ -11,7 +11,7 @@
 		<h:form id="personCreateForm">
 			<h:panelGroup id="display">
 				<p:panelGrid columns="2" rendered="#{personController.selected!=null}">
-					<p:outputLabel value="#{bundle.CreatePersonLabel_IdCard" for="personIdCard"/>
+					<p:outputLabel value="#{bundle.CreatePersonLabel_IdCard}" for="personIdCard"/>
 					<p:inputText id="personIdCard" value="#{personController.selected.idCard}" title="#{bundle.CreatePersonTitle_IdCard}" onblur="value=value.toUpperCase()" required="true" requiredMessage="#{bundle.CreatePersonRequiredMessage_IdCard}"/>	
 					<p:outputLabel value="#{bundle.CreatePersonLabel_FirstName}" for="personFirstName"/>
 					<p:inputText id="personFirstName" value="#{personController.selected.firstName}" title="#{bundle.CreatePersonTitle_FirstName}" onblur="value=value.toUpperCase()" required="true" requiredMessage="#{bundle.CreatePersonRequiredMessage_FirstName}"/>

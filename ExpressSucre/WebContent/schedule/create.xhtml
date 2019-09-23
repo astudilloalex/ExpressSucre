@@ -13,14 +13,14 @@
 				<p:panelGrid columns="2" rendered="#{scheduleController.selected!=null}">
 					<p:outputLabel value="#{bundle.CreateScheduleLabel_Route}" for="scheduleRoute"/>
 					<p:selectOneMenu id="scheduleRoute" value="#{scheduleController.selected.routeBean}" required="true" requiredMessage="#{bundle.CreateScheduleRequiredMessage_Route}">
-                    	<f:selectItems value="#{routeController.itemsAvailableSelectOne}" var="scheduleRouteItem" itemValue="#{scheduleRouteItem}" itemLabel="#{scheduleRouteItem.busStation1}" />
+                    	<f:selectItems value="#{routeController.itemsAvailableSelectOne}" var="scheduleRouteItem" itemValue="#{scheduleRouteItem}" itemLabel="#{scheduleRouteItem.busStation1.name}" />
                     </p:selectOneMenu>
                     <p:outputLabel value="#{bundle.CreateScheduleLabel_Bus}" for="scheduleBus"/>
 					<p:selectOneMenu id="scheduleBus" value="#{scheduleController.selected.busBean}" required="true" requiredMessage="#{bundle.CreateScheduleRequiredMessage_Bus}">
                     	<f:selectItems value="#{busController.itemsAvailableSelectOne}" var="scheduleBusItem" itemValue="#{scheduleBusItem}" itemLabel="#{scheduleBusItem.plate}" />
                     </p:selectOneMenu>                    
 					<p:outputLabel value="#{bundle.CreateScheduleLabel_Date}" for="scheduleDate"/>
-					<p:calendar id="scheduleDate" value="#{scheduleController.selected.date}" title="#{bundle.CreateScheduleTitle_Date}" required="true" requiredMessage="#{bundle.CreateScheduleRequiredMessage_Date}" pattern="MM/dd/yyyy HH:mm:ss"/>
+					<p:calendar id="scheduleDate" value="#{scheduleController.scheduleDate}" title="#{bundle.CreateScheduleTitle_Date}" required="true" requiredMessage="#{bundle.CreateScheduleRequiredMessage_Date}" pattern="MM/dd/yyyy HH:mm:ss"/>
 				</p:panelGrid>
 				<p:commandButton actionListener="#{scheduleController.create}" value="#{bundle.Save}" update="display,:scheduleListForm:scheduleDataTable,:message" oncomplete="handleSubmit(args,'scheduleCreateDialog');"/>
                 <p:commandButton value="#{bundle.Cancel}" actionListener="#{scheduleController.unselected}" immediate="true" onclick="scheduleCreateDialog.hide()"/>

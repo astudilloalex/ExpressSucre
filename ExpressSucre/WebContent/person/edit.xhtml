@@ -13,7 +13,7 @@
 				<p:panelGrid columns="2" rendered="#{personController.selected!=null}">
 					<p:outputLabel value="#{bundle.EditPersonLabel_Id}" for="personId"/>
 					<p:inputText id="personId" value="#{personController.selected.id}" title="#{bundle.EditPersonTitle_Id}" onblur="value=value.toUpperCase()" readonly="true" required="true" requiredMessage="#{bundle.EditPersonRequiredMessage_Id}"/>
-					<p:outputLabel value="#{bundle.EditPersonLabel_IdCard" for="personIdCard"/>
+					<p:outputLabel value="#{bundle.EditPersonLabel_IdCard}" for="personIdCard"/>
 					<p:inputText id="personIdCard" value="#{personController.selected.idCard}" title="#{bundle.EditPersonTitle_IdCard}" onblur="value=value.toUpperCase()" required="true" requiredMessage="#{bundle.EditPersonRequiredMessage_IdCard}"/>	
 					<p:outputLabel value="#{bundle.EditPersonLabel_FirstName}" for="personFirstName"/>
 					<p:inputText id="personFirstName" value="#{personController.selected.firstName}" title="#{bundle.EditPersonTitle_FirstName}" onblur="value=value.toUpperCase()" required="true" requiredMessage="#{bundle.EditPersonRequiredMessage_FirstName}"/>
