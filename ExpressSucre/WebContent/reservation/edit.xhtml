@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition>
+	<p:dialog id="reservationEditDlg" widgetVar="reservationEditDialog" responsive="true" resizable="false" draggable="false" modal="true" header="#{bundle.EditReservationTitle}">
+		<h:form id="reservationEditForm">
+			<h:panelGroup id="display">
+				<p:panelGrid columns="2" rendered="#{reservationController.selected!=null}">
+					<p:outputLabel value="#{bundle.EditReservationLabel_Id}" for="reservationId"/>
+					<p:inputText id="reservationId" value="#{reservationController.selected.id}" title="#{bundle.EditReservationTitle_Id}" readonly="true" required="true" requiredMessage="#{bundle.EditReservationRequiredMessage_Id}"/>
+					<p:outputLabel value="#{bundle.EditReservationLabel_Person}" for="reservationPerson"/>
+					<p:selectOneMenu id="reservationPerson" value="#{reservationController.selected.personBean}" required="true" requiredMessage="#{bundle.EditReservationRequiredMessage_Person}">
+                    	<f:selectItems value="#{personController.itemsAvailableSelectOne}" var="reservationPersonItem" itemValue="#{reservationPersonItem}" itemLabel="#{reservationPersonItem.idCard}" />
+                    </p:selectOneMenu>
+                    <p:outputLabel value="#{bundle.EditReservationLabel_Schedule}" for="reservationSchedule"/>
+					<p:selectOneMenu id="reservationSchedule" value="#{reservationController.selected.scheduleBean}" required="true" requiredMessage="#{bundle.EditReservationRequiredMessage_Schedule}">
+                    	<f:selectItems value="#{scheduleController.itemsAvailableSelectOne}" var="reservationScheduleItem" itemValue="#{reservationScheduleItem}" itemLabel="#{reservationScheduleItem.date}" />
+                    </p:selectOneMenu>
+				</p:panelGrid>
+				<p:commandButton actionListener="#{reservationController.update}" value="#{bundle.Save}" update="display,:reservationListForm:reservationDataTable,:message" oncomplete="handleSubmit(args,'reservationEditDialog');"/>
+                <p:commandButton value="#{bundle.Cancel}" actionListener="#{reservationController.unselected}" immediate="true" onclick="reservationEditDialog.hide()"/>
+			</h:panelGroup>
+		</h:form>
+	</p:dialog>
+</ui:composition>
+</html>
