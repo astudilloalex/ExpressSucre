@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition>
+	<p:dialog id="scheduleEditDlg" widgetVar="scheduleEditDialog" responsive="true" resizable="false" draggable="false" modal="true" header="#{bundle.EditScheduleTitle}">
+		<h:form id="scheduleEditForm">
+			<h:panelGroup id="display">
+				<p:panelGrid columns="2" rendered="#{scheduleController.selected!=null}">
+					<p:outputLabel value="#{bundle.EditScheduleLabel_Id}" for="scheduleId"/>
+					<p:inputText id="scheduleId" value="#{scheduleController.selected.id}" title="#{bundle.EditScheduleTitle_Id}" readonly="true" required="true" requiredMessage="#{bundle.EditScheduleRequiredMessage_Id}"/>
+					<p:outputLabel value="#{bundle.EditScheduleLabel_Route}" for="scheduleRoute"/>
+					<p:selectOneMenu id="scheduleRoute" value="#{scheduleController.selected.routeBean}" required="true" requiredMessage="#{bundle.EditScheduleRequiredMessage_Route}">
+                    	<f:selectItems value="#{routeController.itemsAvailableSelectOne}" var="scheduleRouteItem" itemValue="#{scheduleRouteItem}" itemLabel="#{scheduleRouteItem.busStation1}" />
+                    </p:selectOneMenu>
+                    <p:outputLabel value="#{bundle.EditScheduleLabel_Bus}" for="scheduleBus"/>
+					<p:selectOneMenu id="scheduleBus" value="#{scheduleController.selected.busBean}" required="true" requiredMessage="#{bundle.EditScheduleRequiredMessage_Bus}">
+                    	<f:selectItems value="#{busController.itemsAvailableSelectOne}" var="scheduleBusItem" itemValue="#{scheduleBusItem}" itemLabel="#{scheduleBusItem.plate}" />
+                    </p:selectOneMenu>                    
+					<p:outputLabel value="#{bundle.EditScheduleLabel_Date}" for="scheduleDate"/>
+					<p:calendar id="scheduleDate" value="#{scheduleController.selected.date}" title="#{bundle.EditScheduleTitle_Date}" required="true" requiredMessage="#{bundle.EditScheduleRequiredMessage_Date}" pattern="MM/dd/yyyy HH:mm:ss"/>
+				</p:panelGrid>
+				<p:commandButton actionListener="#{scheduleController.update}" value="#{bundle.Save}" update="display,:scheduleListForm:scheduleDataTable,:message" oncomplete="handleSubmit(args,'scheduleEditDialog');"/>
+                <p:commandButton value="#{bundle.Cancel}" actionListener="#{scheduleController.unselected}" immediate="true" onclick="scheduleEditDialog.hide()"/>
+			</h:panelGroup>
+		</h:form>
+	</p:dialog>
+</ui:composition>
+</html>

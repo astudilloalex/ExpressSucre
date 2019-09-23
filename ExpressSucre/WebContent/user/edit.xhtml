@@ -26,7 +26,7 @@
 					<p:outputLabel value="#{bundle.EditUserLabel_Password}" for="userPassword"/>
 					<p:password id="userPassword" value="#{userController.selected.password}" title="#{bundle.EditUserTitle_Password}" required="true" requiredMessage="#{bundle.EditUserRequiredMessage_Password}"/>
 				</p:panelGrid>
-				<p:commandButton actionListener="#{userController.create}" value="#{bundle.Save}" update="display,:userListForm:userDataTable,:message" oncomplete="handleSubmit(args,'userEditDialog');"/>
+				<p:commandButton actionListener="#{userController.update}" value="#{bundle.Save}" update="display,:userListForm:userDataTable,:message" oncomplete="handleSubmit(args,'userEditDialog');"/>
                 <p:commandButton value="#{bundle.Cancel}" actionListener="#{userController.unselected}" immediate="true" onclick="userEditDialog.hide()"/>
 			</h:panelGroup>
 		</h:form>

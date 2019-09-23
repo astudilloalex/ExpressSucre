@@ -26,7 +26,7 @@
 					<p:outputLabel value="#{bundle.EditBusStationPlatformLabel_State}" for="busStationPlatformState"/>
 					<p:selectBooleanCheckbox id="busStationPlatformState" value="#{busStationPlatformController.selected.state}" title="#{bundle.EditBusStationPlatformTitle_State}" required="true" requiredMessage="#{bundle.EditBusStationPlatformRequiredMessage_State}"/>
 				</p:panelGrid>
-				<p:commandButton actionListener="#{busStationPlatformController.create}" value="#{bundle.Save}" update="display,:busStationPlatformListForm:busStationPlatformDataTable,:message" oncomplete="handleSubmit(args,'busStationPlatformEditDialog');"/>
+				<p:commandButton actionListener="#{busStationPlatformController.update}" value="#{bundle.Save}" update="display,:busStationPlatformListForm:busStationPlatformDataTable,:message" oncomplete="handleSubmit(args,'busStationPlatformEditDialog');"/>
                 <p:commandButton value="#{bundle.Cancel}" actionListener="#{busStationPlatformController.unselected}" immediate="true" onclick="busStationPlatformEditDialog.hide()"/>
 			</h:panelGroup>
 		</h:form>

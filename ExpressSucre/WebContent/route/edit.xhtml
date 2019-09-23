@@ -22,7 +22,7 @@
                     	<f:selectItems value="#{busStationController.itemsAvailableSelectOne}" var="routeBusStationDestinationItem" itemValue="#{routeBusStationDestinationItem}" itemLabel="#{routeBusStationDestinationItem.name}" />
                     </p:selectOneMenu>
 					<p:outputLabel value="#{bundle.EditRouteLabel_Amount}" for="routeAmount"/>
-					<p:inputNumber id="routeAmount" value="#{routeController.selected.amount}" title="#{bundle.EditRouteTitle_Amount}" required="true" requiredMessage="#{bundle.EditRouteRequiredMessage_Amount}"/>
+					<p:inputNumber id="routeAmount" value="#{routeController.selected.amount}" symbol="$" title="#{bundle.EditRouteTitle_Amount}" required="true" requiredMessage="#{bundle.EditRouteRequiredMessage_Amount}"/>
 					<p:outputLabel value="#{bundle.EditRouteLabel_State}" for="routeState"/>
 					<p:selectBooleanCheckbox id="routeState" value="#{routeController.selected.state}" title="#{bundle.EditRouteTitle_State}" required="true" requiredMessage="#{bundle.EditRouteRequiredMessage_State}"/>
 				</p:panelGrid>
