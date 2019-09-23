@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition>
+	<p:dialog id="busStationPlatformEditDlg" widgetVar="busStationPlatformEditDialog" responsive="true" resizable="false" draggable="false" modal="true" header="#{bundle.EditBusStationPlatformTitle}">
+		<h:form id="busStationPlatformEditForm">
+			<h:panelGroup id="display">
+				<p:panelGrid columns="2" rendered="#{busStationPlatformController.selected!=null}">
+					<p:outputLabel value="#{bundle.EditBusStationPlatformLabel_Id}" for="busStationPlatformId"/>
+					<p:inputText id="busStationPlatformId" value="#{busStationPlatformController.selected.id}" title="#{bundle.EditBusStationPlatformTitle_Id}" readonly="true" required="true" requiredMessage="#{bundle.EditBusStationPlatformRequiredMessage_Id}"/>
+					<p:outputLabel value="#{bundle.EditBusStationPlatformLabel_BusStation}" for="busStation"/>
+					<p:selectOneMenu id="busStation" value="#{busStationPlatformController.selected.busStationBean}" required="true" requiredMessage="#{bundle.EditBusStationPlatformRequiredMessage_BusStation}">
+                    	<f:selectItems value="#{busStationController.itemsAvailableSelectOne}" var="busStationPlatformBusStationItem" itemValue="#{busStationPlatformBusStationItem}" itemLabel="#{busStationPlatformBusStationItem.name}" />
+                    </p:selectOneMenu>                    
+                    <p:outputLabel value="#{bundle.EditBusStationPlatformLabel_Platform}" for="platform"/>
+                    <p:selectOneMenu id="platform" value="#{busStationPlatformController.selected.platformBean}" required="true" requiredMessage="#{bundle.EditBusStationPlatformRequiredMessage_Platform}">
+                    	<f:selectItems value="#{platformController.itemsAvailableSelectOne}" var="busStationPlatformPlatformItem" itemValue="#{busStationPlatformPlatformItem}" itemLabel="#{busStationPlatformPlatformItem.number}" />
+                    </p:selectOneMenu>                    
+					<p:outputLabel value="#{bundle.EditBusStationPlatformLabel_Amount}" for="busStationPlatformAmount"/>
+					<p:inputNumber id="busStationPlatformAmount" value="#{busStationPlatformController.selected.amount}" title="#{bundle.EditBusStationPlatformTitle_Amount}" required="true" symbol="$" requiredMessage="#{bundle.EditBusStationPlatformRequiredMessage_Amount}"/>				
+					<p:outputLabel value="#{bundle.EditBusStationPlatformLabel_State}" for="busStationPlatformState"/>
+					<p:selectBooleanCheckbox id="busStationPlatformState" value="#{busStationPlatformController.selected.state}" title="#{bundle.EditBusStationPlatformTitle_State}" required="true" requiredMessage="#{bundle.EditBusStationPlatformRequiredMessage_State}"/>
+				</p:panelGrid>
+				<p:commandButton actionListener="#{busStationPlatformController.create}" value="#{bundle.Save}" update="display,:busStationPlatformListForm:busStationPlatformDataTable,:message" oncomplete="handleSubmit(args,'busStationPlatformEditDialog');"/>
+                <p:commandButton value="#{bundle.Cancel}" actionListener="#{busStationPlatformController.unselected}" immediate="true" onclick="busStationPlatformEditDialog.hide()"/>
+			</h:panelGroup>
+		</h:form>
+	</p:dialog>
+</ui:composition>
+</html>

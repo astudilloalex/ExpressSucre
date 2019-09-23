@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition>
+	<p:dialog id="busStationPlatformViewDlg" widgetVar="busStationPlatformViewDialog" responsive="true" resizable="false" draggable="false" modal="true" header="#{bundle.ViewBusStationPlatformTitle}">
+		<h:form id="busStationPlatformViewForm">
+			<h:panelGroup id="display">
+				<p:panelGrid columns="2" rendered="#{busStationPlatformController.selected!=null}">
+					<h:outputText value="#{bundle.ViewBusStationPlatformLabel_Id}"/>
+					<h:outputText value="#{busStationPlatformController.selected.id}" title="#{bundle.ViewBusStationPlatformTitle_Id}"/>
+					<h:outputText value="#{bundle.ViewBusStationPlatformLabel_BusStation}"/>
+					<h:outputText value="#{busStationPlatformController.selected.busStationBean.name}" title="#{bundle.ViewBusStationPlatformTitle_BusStation}"/>
+					<h:outputText value="#{bundle.ViewBusStationPlatformLabel_Platform}"/>
+					<h:outputText value="#{busStationPlatformController.selected.platformBean.number}" title="#{bundle.ViewBusStationPlatformTitle_Platform}"/>
+					<h:outputText value="#{bundle.ViewBusStationPlatformLabel_Amount}"/>
+					<h:outputText value="#{busStationPlatformController.selected.amount}" title="#{bundle.ViewBusStationPlatformTitle_Amount}"/>
+					<h:outputText value="#{bundle.ViewBusStationPlatformLabel_State}"/>
+					<p:selectBooleanCheckbox value="#{busStationPlatformController.selected.state}" title="#{bundle.ViewBusStationPlatformTitle_State}" disabled="true"/>
+				</p:panelGrid>
+                <p:commandButton value="#{bundle.Close}" onclick="busStationPlatformViewDialog.hide()"/>
+			</h:panelGroup>
+		</h:form>
+	</p:dialog>
+</ui:composition>
+</html>
