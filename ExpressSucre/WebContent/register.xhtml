@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+	<title>ISTA REGISTER</title>
+	<link rel="icon" type="image" href="#{resource['images/logo.png']}" />
+	<!-- CSS Files -->
+	<h:outputStylesheet library="css" name="bootstrap.min.css" />
+	<h:outputStylesheet library="css" name="register.css" />
+	<!-- Javascript Files -->
+	<h:outputScript library="javascript" name="jquery-3.3.1.min.js" />
+	<h:outputScript library="javascript" name="bootstrap.min.js" />
+	<h:outputScript library="javascript" name="register.js"></h:outputScript>
+	<f:event listener="#{registerController.verifySession}"
+		type="preRenderView" />
+</h:head>
+<h:body>
+	<p:messages showDetail="true" closable="true">
+		<p:autoUpdate/>
+	</p:messages>
+	<div class="container">
+		<div class="d-flex justify-content-center h-100">
+			<div class="card">
+				<div class="card-header">
+					<h3>Registrarse</h3>
+				</div>
+				<div class="card-body">
+					<h:form id="register">
+						<div class="input-group form-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text"><i class="fa fa-id-card"></i></span>
+							</div>
+							<p:inputText placeholder="Cédula" id="id-card"
+								styleClass="form-control" required="true"
+								value="#{registerController.user.idCard}">
+								<p:ajax event="blur" listener="#{registerController.registered}"></p:ajax>
+							</p:inputText>
+						</div>
+
+						<div class="input-group form-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text"><i class="fa fa-user"></i></span>
+							</div>
+							<p:inputText styleClass="form-control" placeholder="Usuario"
+								required="true" id="username"
+								value="#{registerController.user.user}">
+								<p:ajax event="blur" listener="#{registerController.available}"></p:ajax>
+							</p:inputText>
+						</div>
+
+						<div class="input-group form-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text"><i class="fa fa-key"></i></span>
+							</div>
+							<p:password styleClass="form-control" placeholder="Contraseña"
+								required="true" id="password"
+								value="#{registerController.user.password}" />
+						</div>
+
+						<div class="input-group form-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text"><i class="fa fa-key"></i></span>
+							</div>
+							<p:password styleClass="form-control" id="reset-password"
+								placeholder="Repetir Contraseña" required="true"
+								value="#{registerController.user.resetPassword}" />
+						</div>
+
+						<div class="form-group">
+							<p:commandButton id="register" value="Registrar"
+								action="#{registerController.register}"
+								styleClass="btn float-right login_btn" />
+						</div>
+					</h:form>
+				</div>
+			</div>
+		</div>
+	</div>
+</h:body>
+</html>
