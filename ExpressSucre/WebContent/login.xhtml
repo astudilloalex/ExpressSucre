@@ -18,14 +18,14 @@
 	<h:outputScript library="js" name="bootstrap.min.js" />
 </h:head>
 <h:body>
-	<p:messages showDetail="true" closable="true">
+	<p:growl id="message" showDetail="true" life="3000">
 		<p:autoUpdate />
-	</p:messages>
+	</p:growl>
 	<div class="container">
 		<div class="d-flex justify-content-center h-100">
 			<div class="card">
 				<div class="card-header">
-					<h3>Ingresar</h3>
+					<h3><h:outputText value="#{bundle.LoginTitle}"/></h3>
 				</div>
 				<div class="card-body">
 					<h:form>
@@ -35,7 +35,7 @@
 							</div>
 							<p:inputText id="user" placeholder="Usuario"
 								styleClass="form-control" required="true"
-								value="" />
+								value="#{loginController.username}" />
 						</div>
 						<div class="input-group form-group">
 							<div class="input-group-prepend">
@@ -43,10 +43,10 @@
 							</div>
 							<p:password id="password" styleClass="form-control"
 								placeholder="password" required="true"
-								value="" />
+								value="#{loginController.password}" />
 						</div>
 						<div class="form-group">
-							<p:commandButton id="login" value="Login"
+							<p:commandButton id="login" value="Login" action="#{loginController.authenticate}"
 								styleClass="btn float-right login_btn" />
 						</div>
 					</h:form>
