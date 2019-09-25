@@ -27,7 +27,7 @@
 		<div class="d-flex justify-content-center h-100">
 			<div class="card">
 				<div class="card-header">
-					<h3>Registrarse</h3>
+					<h3><h:outputText value="#{bundle.RegisterTitle}"/></h3>
 				</div>
 				<div class="card-body">
 					<h:form id="register">
@@ -35,10 +35,28 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text"><i class="fa fa-id-card"></i></span>
 							</div>
-							<p:inputText placeholder="Cédula" id="id-card"
+							<p:inputText placeholder="#{bundle.Register_IdCard}" id="id-card"
 								styleClass="form-control" required="true"
-								value="#{registerController.user.idCard}">
-								<p:ajax event="blur" listener="#{registerController.registered}"></p:ajax>
+								value="">
+							</p:inputText>
+						</div>
+						<div class="input-group form-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text"><i class="fa fa-arrow-circle-right"></i></span>
+							</div>
+							<p:inputText placeholder="#{bundle.Register_FirstName}" id="first-name"
+								styleClass="form-control" required="true"
+								value="">
+							</p:inputText>
+						</div>
+						
+						<div class="input-group form-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text"><i class="fa fa-arrow-circle-right"></i></span>
+							</div>
+							<p:inputText placeholder="#{bundle.Register_LastName}" id="last-name"
+								styleClass="form-control" required="true"
+								value="">
 							</p:inputText>
 						</div>
 
@@ -46,10 +64,9 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text"><i class="fa fa-user"></i></span>
 							</div>
-							<p:inputText styleClass="form-control" placeholder="Usuario"
+							<p:inputText styleClass="form-control" placeholder="#{bundle.Register_UserName}"
 								required="true" id="username"
-								value="#{registerController.user.user}">
-								<p:ajax event="blur" listener="#{registerController.available}"></p:ajax>
+								value="">
 							</p:inputText>
 						</div>
 
@@ -57,23 +74,23 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text"><i class="fa fa-key"></i></span>
 							</div>
-							<p:password styleClass="form-control" placeholder="Contraseña"
+							<p:password styleClass="form-control" placeholder="#{bundle.Register_Password}"
 								required="true" id="password"
-								value="#{registerController.user.password}" />
+								value="" />
 						</div>
 
 						<div class="input-group form-group">
 							<div class="input-group-prepend">
 								<span class="input-group-text"><i class="fa fa-key"></i></span>
 							</div>
-							<p:password styleClass="form-control" id="reset-password"
-								placeholder="Repetir Contraseña" required="true"
-								value="#{registerController.user.resetPassword}" />
+							<p:password styleClass="form-control" id="repeat-password"
+								placeholder="#{bundle.Register_RepeatPassword}" required="true"
+								value="" />
 						</div>
 
 						<div class="form-group">
 							<p:commandButton id="register" value="Registrar"
-								action="#{registerController.register}"
+								
 								styleClass="btn float-right login_btn" />
 						</div>
 					</h:form>
