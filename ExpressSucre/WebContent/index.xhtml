@@ -6,14 +6,43 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
+	
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 	<meta name="viewport" content="width=device-width,initial-scale=1.0" />
 	<h:outputScript library="js" name="jsfcrud.js" />
+	<h:outputStylesheet library="css" name="bootstrap.min.css" />
+	<h:outputStylesheet library="css" name="index.css" />
 </h:head>
-
 <h:body>
+<h:form>  
+    <p:growl id="messages"/>
+ 
+    <p:menubar>
+     <p:menuitem value="EXPRESS SUCRE" url="http://www.primefaces.org" icon="pi pi-times"/>
+        <f:facet name="options">
+            <p:commandButton type="button" value="Login" icon="pi pi-home" />
+        </f:facet>
+    </p:menubar>
+</h:form>
+<h3 style="margin-top:0"></h3>
+<div align="center">
+<img src="resources/images/bus.jpg;"/>
+</div>
+<div class="container">
+<div class="card">
+<h:form>
+    <p:outputPanel deferred="true" layout="block" >
+        <h3 style="color:#FFFFFF;" align="center">Express Sucre</h3>
+        <p style="color:#FFFFFF;" align="justify">La Coooperativa de Transporte Express Sucre fue fundada en la ciudad de Cuenca por la iniciativa de personas cuya finalidad era aportar al sistema de transporte interprovincial una linea de buses que cubriera rutas desde esta localidad hacia otras ciudades importantes del país, y de esta forma facilitar el traslado de pasajeros a las distintas provincias del país, siendo en estos momentos una de las cooperativas más importantes del sistema de transporte terrestre en Ecuador.
 
+Actualmente cuenta con una flota importante de buses modernos que ofrecen servicios de calidad para quienes deciden realizar los recorridos por las rutas que cubre, igualmente tiene una flotilla de micro buses el cual se denomina servicios express VIP, lo cual hace del viaje de sus pasajeros más cómodo y rápido entre ciudades como Cuenca y Guayaquil.
+
+En el siguiente artículo te brindamos toda la información sobre esta empresa de transporte en relación a los servicios que ofrece, algunas rutas que recorre, sus canales de contactos para atención a sus clientes, el precio de pasajes para algunos de sus viajes interprovinciales, así como la mención de los terminales terrestre donde opera la cooperativa.</p>
+    </p:outputPanel>
+</h:form>
+</div>
+</div>
 </h:body>
 
 </html>
