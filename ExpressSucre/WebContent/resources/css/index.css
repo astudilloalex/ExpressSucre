@@ -1,0 +1,16 @@
+@charset "ISO-8859-1";
+html, body {
+	background-image: url('#{resource['images/login-background.jpg']}');
+	background-size: cover;
+	background-repeat: no-repeat;
+	height: 100%;
+	font-family: 'Numans', sans-serif;
+}
+
+.card {
+	height: 300px;
+	margin-top: auto;
+	margin-bottom: auto;
+	width: 400px;
+	background-color: rgba(0, 0, 0, 0.5) !important;
+}
