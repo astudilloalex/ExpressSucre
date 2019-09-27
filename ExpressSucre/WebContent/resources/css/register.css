@@ -1,7 +1,7 @@
 @charset "ISO-8859-1";
 
 html, body {
-	background-image: url('#{resource['images/login-background.jpg']}');
+	background-image: url('#{resource['images/bus_station.jpg']}');
 	background-size: cover;
 	background-repeat: no-repeat;
 	height: 100%;
@@ -14,7 +14,7 @@ html, body {
 }
 
 .card {
-	height: 370px;
+	height: 560px;
 	margin-top: auto;
 	margin-bottom: auto;
 	width: 400px;

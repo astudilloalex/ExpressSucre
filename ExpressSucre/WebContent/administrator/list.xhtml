@@ -7,12 +7,173 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+	<h:outputScript library="js" name="jsfcrud.js" />
+	<h:outputStylesheet library="css" name="bootstrap.min.css" />
+	<h:outputStylesheet library="css" name="index.css" />
+</h:head>
+	
+
 <ui:composition template="/template.xhtml">
 	<ui:define name="title">
 	    <h:outputText value="#{bundle.AdministratorPanelTitle}"></h:outputText>
 	</ui:define>
 	<ui:define name="content">
-	    
+	     <h:body>
+	     
+	     <h:form id="AdministratorList">
+	          
+	     <div class="container">
+<div class="row">
+<div id="col" class="col-md-12 my-auto">
+<div class="text-center">
+  <p:panel id="basic"  style="margin-bottom:20px" styleClass="panel">
+   <div align="center" >
+ <p:panelGrid columns="5" class="btn btn-secondary btn-lg">
+<p:panelGrid columns="5" class="btn btn-secondary btn-lg" >
+    <f:facet name="header">
+        <p:graphicImage  library="images" height="100" width="100" name="stack.png" />
+    </f:facet>
+    <p:commandButton id="btn" value="BUS"  onclick="location= '/ExpressSucre/faces/bus/list.xhtml'" />
+</p:panelGrid>
+ <p:panelGrid columns="5" class="btn btn-secondary btn-lg">
+    <f:facet name="header">
+        <p:graphicImage  library="images" height="100" width="100" name="MARCA.jpg" />
+    </f:facet>
+     <p:commandButton value="MARCA" id="button" style="width: 150px; " onclick="location= '/ExpressSucre/faces/brand/list.xhtml'"/>
+</p:panelGrid>
+
+<p:panelGrid columns="5" class="btn btn-secondary btn-lg">
+    <f:facet name="header">
+        <p:graphicImage  library="images" height="100" width="100" name="asiento.jpg" />
+    </f:facet>
+    <p:commandButton id="btn1" value="Asiento de Bus"  onclick="location= '/ExpressSucre/faces/busseat/list.xhtml'"/>
+</p:panelGrid>
+
+<p:panelGrid columns="5" class="btn btn-secondary btn-lg">
+    <f:facet name="header">
+        <p:graphicImage  library="images" height="100" width="100" name="estacion.jpg" />
+    </f:facet>
+  
+     <p:commandButton value="ESTACION" id="button1" style="width: 150px; " onclick="location= '/ExpressSucre/faces/busstation/list.xhtml'"/>
+     
+</p:panelGrid>
+<p:panelGrid columns="5" class="btn btn-secondary btn-lg">
+    <f:facet name="header">
+        <p:graphicImage  library="images" height="100" width="100" name="plataforma.jpg" />
+    </f:facet>
+  
+     <p:commandButton value="PLATAFORMA-ESTACION" id="btton2" style="width: 150px; " onclick="location= '/ExpressSucre/faces/busstationplatform/list.xhtml'"/>
+     
+</p:panelGrid>
+</p:panelGrid>
+
+ <p:panelGrid columns="5" class="btn btn-secondary btn-lg">
+<p:panelGrid columns="5" class="btn btn-secondary btn-lg" >
+    <f:facet name="header">
+        <p:graphicImage  library="images" height="100" width="100" name="city.jpg" />
+    </f:facet>
+    <p:commandButton id="bt" value="CIUDAD"  onclick="location= '/ExpressSucre/faces/city/list.xhtml'" />
+</p:panelGrid>
+ <p:panelGrid columns="5" class="btn btn-secondary btn-lg">
+    <f:facet name="header">
+        <p:graphicImage  library="images" height="100" width="100" name="country.gif" />
+    </f:facet>
+     <p:commandButton value="PAIS" id="buton3" style="width: 150px; " onclick="location= '/ExpressSucre/faces/country/list.xhtml'"/>
+</p:panelGrid>
+
+<p:panelGrid columns="5" class="btn btn-secondary btn-lg">
+    <f:facet name="header">
+        <p:graphicImage  library="images" height="100" width="100" name="customer.jpg" />
+    </f:facet>
+    <p:commandButton id="b" value="CLIENTE"  onclick="location= '/ExpressSucre/faces/customer/list.xhtml'"/>
+</p:panelGrid>
+
+<p:panelGrid columns="5" class="btn btn-secondary btn-lg">
+    <f:facet name="header">
+        <p:graphicImage  library="images" height="100" width="100" name="person.jpg" />
+    </f:facet>
+  
+     <p:commandButton value="PERSONA" id="butt" style="width: 150px; " onclick="location= '/ExpressSucre/faces/person/list.xhtml'"/>
+     
+</p:panelGrid>
+<p:panelGrid columns="5" class="btn btn-secondary btn-lg">
+    <f:facet name="header">
+        <p:graphicImage  library="images" height="100" width="100" name="plataforma2.jpg" />
+    </f:facet>
+  
+     <p:commandButton value="PLATAFORMA" id="buttn2" style="width: 150px; " onclick="location= '/ExpressSucre/faces/platform/list.xhtml'"/>
+     
+</p:panelGrid>
+</p:panelGrid>
+
+
+ <p:panelGrid columns="5" class="btn btn-secondary btn-lg">
+<p:panelGrid columns="5" class="btn btn-secondary btn-lg" >
+    <f:facet name="header">
+        <p:graphicImage  library="images" height="100" width="100" name="reservas.jpg" />
+    </f:facet>
+    <p:commandButton id="bt12" value="RESERVACION"  onclick="location= '/ExpressSucre/faces/reservation/list.xhtml'" />
+</p:panelGrid>
+ <p:panelGrid columns="5" class="btn btn-secondary btn-lg">
+    <f:facet name="header">
+        <p:graphicImage  library="images" height="100" width="100" name="user.png" />
+    </f:facet>
+     <p:commandButton value="USUARIO" id="buton" style="width: 150px; " onclick="location= '/ExpressSucre/faces/user/list.xhtml'"/>
+</p:panelGrid>
+
+<p:panelGrid columns="5" class="btn btn-secondary btn-lg">
+    <f:facet name="header">
+        <p:graphicImage  library="images" height="100" width="100" name="asiento2.jpg" />
+    </f:facet>
+    <p:commandButton id="bIII" value="ASIENTO"  onclick="location= '/ExpressSucre/faces/seat/list.xhtml'"/>
+</p:panelGrid>
+
+<p:panelGrid columns="5" class="btn btn-secondary btn-lg">
+    <f:facet name="header">
+        <p:graphicImage  library="images" height="100" width="100" name="schedule.gif" />
+    </f:facet>
+  
+     <p:commandButton value="CALENDARIO" id="bu1t" style="width: 150px; " onclick="location= '/ExpressSucre/faces/schedule/list.xhtml'"/>
+     
+</p:panelGrid>
+<p:panelGrid columns="5" class="btn btn-secondary btn-lg">
+    <f:facet name="header">
+        <p:graphicImage  library="images" height="100" width="100" name="ruta.png" />
+    </f:facet>
+  
+     <p:commandButton value="RUTA" id="but11tn2" style="width: 150px; " onclick="location= '/ExpressSucre/faces/route/list.xhtml'"/>
+     
+</p:panelGrid>
+</p:panelGrid>
+
+
+</div>
+
+<div align="center">
+
+<p:panelGrid columns="1"  class="btn btn-secondary btn-lg" >
+<p:panelGrid columns="1" class=" btn btn-secondary btn-lg"      >
+    <f:facet name="header">
+        <p:graphicImage  library="images" height="100" width="100" name="rol.jpg"/>
+    </f:facet>
+    <p:commandButton id="bt42" value="ROLES"  onclick="location= '/ExpressSucre/faces/role/list.xhtml'" />
+</p:panelGrid>
+ </p:panelGrid>
+</div>
+  </p:panel>
+  </div>
+</div>  
+
+
+</div>
+</div>
+	     
+	     
+	     </h:form>
+	     </h:body>
 	</ui:define>
 </ui:composition>
 </html>
