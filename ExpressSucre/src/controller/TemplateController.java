@@ -27,10 +27,10 @@ public class TemplateController implements Serializable {
 			} else {
 				if (!this.loginController.getUser().getRoleBean().getCode().equals("ADM") && this.loginController.getUser().getRoleBean().getCode().equals("EMP")) {
 					FacesContext.getCurrentInstance().getExternalContext()
-							.redirect("/ExpressSucre/faces/template.xhtml");
+							.redirect("/ExpressSucre/faces/administrator/list.xhtml");
 				}else if(!this.loginController.getUser().getRoleBean().getCode().equals("ADM") && this.loginController.getUser().getRoleBean().getCode().equals("CLI")) {
 					FacesContext.getCurrentInstance().getExternalContext()
-					.redirect("/ExpressSucre/faces/templateDefault.xhtml");
+					.redirect("/ExpressSucre/faces/customer/list.xhtml");
 				}
 			}
 		} catch (IOException e) {
@@ -64,15 +64,15 @@ public class TemplateController implements Serializable {
 					switch (this.loginController.getUser().getRoleBean().getCode()) {
 					case "ADM":
 						FacesContext.getCurrentInstance().getExternalContext()
-								.redirect("/ExpressSucre/faces/template.xhtml");
+								.redirect("/ExpressSucre/faces/administrator/list.xhtml");
 						break;
 					case "EMP":
 						FacesContext.getCurrentInstance().getExternalContext()
-								.redirect("/ExpressSucre/faces/template.xhtml");
+								.redirect("/ExpressSucre/faces/administrator/list.xhtml");
 						break;
 					default:
 						FacesContext.getCurrentInstance().getExternalContext()
-								.redirect("/ExpressSucre/faces/templateDefault.xhtml");
+								.redirect("/ExpressSucre/faces/customer/list.xhtml");
 						break;
 					}
 			}
@@ -86,7 +86,7 @@ public class TemplateController implements Serializable {
 		if (this.administratorDisabled) {
 			try {
 				FacesContext.getCurrentInstance().getExternalContext()
-						.redirect("/DataBaseProject/faces/template.xhtml");
+						.redirect("/DataBaseProject/faces/administrator/list.xhtml");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

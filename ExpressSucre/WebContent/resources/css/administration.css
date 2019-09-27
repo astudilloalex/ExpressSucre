@@ -1,0 +1,16 @@
+@charset "ISO-8859-1";
+
+html, body {
+	background-image: url('#{resource['images/fondo.jpg']}');
+	background-size: cover;
+	background-repeat: no-repeat;
+	height: 100%;
+	font-family: 'Numans', sans-serif;
+}
+
+.panel {
+	background-color: transparent;
+	-webkit-border-radius: 28;
+	-moz-border-radius: 28;
+	border-radius: 28px;
+}

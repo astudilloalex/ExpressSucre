@@ -1,7 +1,7 @@
 @charset "ISO-8859-1";
 
 html, body {
-	background-image: url('#{resource['images/login-background.jpg']}');
+	background-image: url('#{resource['images/bus_station.jpg']}');
 	background-size: cover;
 	background-repeat: no-repeat;
 	height: 100%;
