@@ -1,6 +1,6 @@
 @charset "ISO-8859-1";
 html, body {
-	background-image: url('#{resource['images/login-background.jpg']}');
+	background-image: url('#{resource['images/busStation.jpg']}');
 	background-size: cover;
 	background-repeat: no-repeat;
 	height: 100%;
@@ -11,6 +11,16 @@ html, body {
 	height: 300px;
 	margin-top: auto;
 	margin-bottom: auto;
-	width: 400px;
+	width: 1100px;
 	background-color: rgba(0, 0, 0, 0.5) !important;
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: black;
+  color: white;
+  text-align: center;
 }

@@ -13,6 +13,8 @@
 	<h:outputScript library="js" name="jsfcrud.js" />
 	<h:outputStylesheet library="css" name="bootstrap.min.css" />
 	<h:outputStylesheet library="css" name="index.css" />
+	<h:outputStylesheet library="css" name="style.css" />
+	<h:outputStylesheet library="css" name="main.css" />
 </h:head>
 <h:body>
 <h:form>  
@@ -21,13 +23,23 @@
     <p:menubar>
      <p:menuitem value="EXPRESS SUCRE" url="http://www.primefaces.org" icon="pi pi-times"/>
         <f:facet name="options">
-            <p:commandButton type="button" value="Login" icon="pi pi-home" />
+            <p:commandButton value="Login" action="/login?faces-redirect=true" icon="pi pi-home" />
         </f:facet>
     </p:menubar>
+    <div class="social-bar">
+    <a href="https://www.facebook.com/DevCode.la" class="icon icon-facebook" target="_blank"></a>
+    <a href="https://twitter.com/DevCodela" class="icon icon-twitter" target="_blank"></a>
+    <a href="https://www.youtube.com/c/devcodela" class="icon icon-youtube" target="_blank"></a>
+    <a href="https://www.instagram.com/devcodela/" class="icon icon-instagram" target="_blank"></a>
+    <a href="https://www.instagram.com/devcodela/" class="icon icon-google" target="_blank"></a>
+    <a href="https://www.instagram.com/devcodela/" class="icon icon-whatsapp" target="_blank"></a>
+    <a href="https://www.instagram.com/devcodela/" class="icon icon-youtube2" target="_blank"></a>
+    <a href="https://www.instagram.com/devcodela/" class="icon icon-chrome" target="_blank"></a>  
+  </div>
 </h:form>
 <h3 style="margin-top:0"></h3>
 <div align="center">
-<img src="resources/images/bus.jpg;"/>
+<img src="resources/images/bus2.png;" width="400px" height="200px"/>
 </div>
 <div class="container">
 <div class="card">
@@ -43,6 +55,19 @@ En el siguiente artículo te brindamos toda la información sobre esta empresa d
 </h:form>
 </div>
 </div>
+
+
+<!-- Footer -->
+<footer class="footer">
+
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-3">© 2019 Copyright:
+    <a href="https://mdbootstrap.com/education/bootstrap/"> Express Sucre</a>
+  </div>
+  <!-- Copyright -->
+
+</footer>
+<!-- Footer -->
 </h:body>
 
 </html>
