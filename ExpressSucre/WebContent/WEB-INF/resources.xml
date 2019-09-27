@@ -2,8 +2,8 @@
 <resources>
 	<Resource id="Base" type="javax.sql.DataSource">
 		jdbcDriver=org.postgresql.Driver
-		password=planerp1977
+		password=alex1998
 		userName=postgres
-		jdbcUrl=jdbc\:postgresql\://localhost\:5433/express_sucre
+		jdbcUrl=jdbc\:postgresql\://localhost\:5432/express_sucre
 	</Resource>
 </resources>

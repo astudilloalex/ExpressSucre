@@ -3,34 +3,81 @@ package controller;
 import java.io.IOException;
 import java.io.Serializable;
 
+import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+import javax.inject.Named;
 
-import model.User;
+@Named("templateController")
+@SessionScoped
+public class TemplateController implements Serializable {
 
-public class TemplateController implements Serializable{
-	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private LoginController loginController;
 	private boolean administratorDisabled;
-	private String user;
-	
-	private boolean isAdmin(User user) {
-		return true;
-	}
-	
-	public void verifySession() {
+
+	public void verifyAdministrator() {
 		try {
-			User user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user");
-			if (user == null) {
-				FacesContext.getCurrentInstance().getExternalContext().redirect("/DataBaseProject/faces/index.xhtml");
+			if (this.loginController.getUser() == null) {
+				FacesContext.getCurrentInstance().getExternalContext().redirect("/ExpressSucre/faces/login.xhtml");
 			} else {
-				this.user = user.getUsername();
-				this.administratorDisabled = !isAdmin(user);
+				if (!this.loginController.getUser().getRoleBean().getCode().equals("ADM") && this.loginController.getUser().getRoleBean().getCode().equals("EMP")) {
+					FacesContext.getCurrentInstance().getExternalContext()
+							.redirect("/ExpressSucre/faces/template.xhtml");
+				}else if(!this.loginController.getUser().getRoleBean().getCode().equals("ADM") && this.loginController.getUser().getRoleBean().getCode().equals("CLI")) {
+					FacesContext.getCurrentInstance().getExternalContext()
+					.redirect("/ExpressSucre/faces/templateDefault.xhtml");
+				}
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public boolean isAdminDisabled() {
+		if (this.loginController.getUser() != null
+				&& this.loginController.getUser().getRoleBean().getCode().equals("ADM")) {
+			return false;
+		}
+		return true;
+	}
+
+	public void verifySession() {
+		try {
+			if (this.loginController.getUser() == null) {
+				FacesContext.getCurrentInstance().getExternalContext().redirect("/ExpressSucre/faces/login.xhtml");
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public void verifyLogin() {
+		try {
+			if (this.loginController.getUser() != null) {
+					switch (this.loginController.getUser().getRoleBean().getCode()) {
+					case "ADM":
+						FacesContext.getCurrentInstance().getExternalContext()
+								.redirect("/ExpressSucre/faces/template.xhtml");
+						break;
+					case "EMP":
+						FacesContext.getCurrentInstance().getExternalContext()
+								.redirect("/ExpressSucre/faces/template.xhtml");
+						break;
+					default:
+						FacesContext.getCurrentInstance().getExternalContext()
+								.redirect("/ExpressSucre/faces/templateDefault.xhtml");
+						break;
+					}
+			}
+		} catch (IOException e) {
+			// TODO: handle exception
 			e.printStackTrace();
 		}
 	}
@@ -48,11 +95,11 @@ public class TemplateController implements Serializable{
 	}
 
 	public String logoutSession() {
-		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("user", null);
+		this.loginController.setUser(null);
 		return "/index?faces-redirect=true";
 	}
-	
-	//Getters and Setters
+
+	// Getters and Setters
 	public boolean isAdministratorDisabled() {
 		return administratorDisabled;
 	}

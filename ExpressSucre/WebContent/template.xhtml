@@ -11,6 +11,7 @@
 	<meta name="viewport" content="width=device-width,initial-scale=1.0" />
 	<title><ui:insert name="title">Express Sucre</ui:insert></title>
 	<h:outputScript library="js" name="jsfcrud.js" />
+	<f:event listener="#{templateController.verifySession}" type="preRenderView" />
 </h:head>
 
 <h:body>
@@ -19,13 +20,31 @@
 		<ui:insert name="header">
 			<h:form>
 				<p:menubar>
-					<p:submenu label="Admin" icon="fa fa-user-plus">
-						<p:menuitem value="Roles"
-							url="/ExpressSucre/faces/role/list.xhtml" />
-						<p:menuitem value="Usuarios" url="#" />
+					<p:submenu label="#{bundle.MenuAdministratorTitle}" icon="fa fa-user-plus" disabled="#{templateController.adminDisabled}">
+						<p:menuitem value="#{bundle.MenuItemRoleTitle}" url="/ExpressSucre/faces/role/list.xhtml" />
+						<p:menuitem value="#{bundle.MenuItemPersonTitle}" url="/ExpressSucre/faces/person/list.xhtml" />
+						<p:menuitem value="#{bundle.MenuItemUserTitle}" url="/ExpressSucre/faces/user/list.xhtml" />
+					</p:submenu>
+					<p:submenu label="#{bundle.MenuBusTitle}" icon="fa fa-bus" >
+						<p:menuitem value="#{bundle.MenuItemBrandTitle}" url="/ExpressSucre/faces/brand/list.xhtml" />
+						<p:menuitem value="#{bundle.MenuItemBusTitle}" url="/ExpressSucre/faces/bus/list.xhtml" />
+						<p:menuitem value="#{bundle.MenuItemSeatTitle}" url="/ExpressSucre/faces/seat/list.xhtml" />
+						<p:menuitem value="#{bundle.MenuItemBusSeatTitle}" url="/ExpressSucre/faces/busseat/list.xhtml" />
+					</p:submenu>
+					<p:submenu label="#{bundle.MenuBusStationTitle}" icon="fa fa-institution" >
+						<p:menuitem value="#{bundle.MenuItemCountryTitle}" url="/ExpressSucre/faces/country/list.xhtml" />
+						<p:menuitem value="#{bundle.MenuItemCityTitle}" url="/ExpressSucre/faces/city/list.xhtml" />
+						<p:menuitem value="#{bundle.MenuItemPlatformTitle}" url="/ExpressSucre/faces/platform/list.xhtml" />
+						<p:menuitem value="#{bundle.MenuItemBusStationTitle}" url="/ExpressSucre/faces/busstation/list.xhtml" />
+						<p:menuitem value="#{bundle.MenuItemBusStationPlatformTitle}" url="/ExpressSucre/faces/busstationplatform/list.xhtml" />
+					</p:submenu>
+					<p:submenu label="#{bundle.MenuReservationTitle}" icon="fa fa-ticket">
+						<p:menuitem value="#{bundle.MenuItemRouteTitle}" url="/ExpressSucre/faces/route/list.xhtml" />
+						<p:menuitem value="#{bundle.MenuItemScheduleTitle}" url="/ExpressSucre/faces/schedule/list.xhtml" />
+						<p:menuitem value="#{bundle.MenuItemReservationTitle}" url="/ExpressSucre/faces/reservation/list.xhtml" />
 					</p:submenu>
 					<f:facet name="options">
-						<p:commandButton type="button" value="Logout" action="#{registerController.example}" icon="fa fa-home" />
+						<p:commandButton value="#{bundle.Logout}" action="#{templateController.logoutSession}" icon="fa fa-home" />
 					</f:facet>
 				</p:menubar>
 			</h:form>
