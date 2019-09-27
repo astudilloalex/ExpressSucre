@@ -12,9 +12,8 @@
 	<title><ui:insert name="title">Express Sucre</ui:insert></title>
 	<h:outputScript library="js" name="jsfcrud.js" />
 	<h:outputStylesheet library="css" name="reservation_button.css" />
-	<h:outputStylesheet library="css" name="schedule_button.css" />
 	<h:outputStylesheet library="css" name="bootstrap.min.css" />
-	
+	<f:event listener="#{templateController.verifySession}" type="preRenderView" />
 </h:head>
 
 <h:body>
@@ -29,7 +28,7 @@
 						<p:menuitem value="Usuarios" url="#" />
 					</p:submenu>
 					<f:facet name="options">
-						<p:commandButton type="button" value="Logout" action="#{registerController.example}" icon="fa fa-home" />
+						<p:commandButton value="Logout" action="#{templateController.logoutSession}" icon="fa fa-home" />
 					</f:facet>
 				</p:menubar>
 			</h:form>

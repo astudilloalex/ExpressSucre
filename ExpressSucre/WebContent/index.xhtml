@@ -13,8 +13,6 @@
 	<h:outputScript library="js" name="jsfcrud.js" />
 	<h:outputStylesheet library="css" name="bootstrap.min.css" />
 	<h:outputStylesheet library="css" name="index.css" />
-	<h:outputStylesheet library="css" name="style.css" />
-	<h:outputStylesheet library="css" name="main.css" />
 </h:head>
 <h:body>
 <h:form>  
@@ -23,7 +21,7 @@
     <p:menubar>
      <p:menuitem value="EXPRESS SUCRE" url="http://www.primefaces.org" icon="pi pi-times"/>
         <f:facet name="options">
-            <p:commandButton type="button" value="Login" icon="pi pi-home" />
+            <p:commandButton value="Login" action="/login?faces-redirect=true" icon="pi pi-home" />
         </f:facet>
     </p:menubar>
     <div class="social-bar">
