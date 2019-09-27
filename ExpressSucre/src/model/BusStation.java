@@ -10,7 +10,9 @@ import java.util.List;
  */
 @Entity
 @Table(name = "bus_station")
-@NamedQuery(name = "BusStation.findAll", query = "SELECT b FROM BusStation b")
+@NamedQueries({
+	@NamedQuery(name = "BusStation.findAll", query = "SELECT b FROM BusStation b")
+})
 public class BusStation implements Serializable {
 	private static final long serialVersionUID = 1L;
 
