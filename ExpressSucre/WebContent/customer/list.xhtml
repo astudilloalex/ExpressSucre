@@ -1,5 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+	<!-- CSS Files -->
+	
 
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
@@ -7,12 +9,32 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 
-<ui:composition template="/template.xhtml">
+<ui:composition template="/templateDefault.xhtml">
 	<ui:define name="title">
-	    <h:outputText value="#{bundle.AdministratorPanelTitle}"></h:outputText>
+	    <h:outputText value="#{bundle.CustomerPanelTitle}"></h:outputText>
 	</ui:define>
 	<ui:define name="content">
-	    
+<div class="container">
+<div class="row">
+<div id="col" class="col-md-12 my-auto">
+<div class="text-center">
+  <p:panel id="basic" header="#{bundle.CustomerPanelTitle}" style="margin-bottom:20px" styleClass="panel">
+   <div align="center">
+ <p:panelGrid columns="1" class="btn btn-secondary btn-lg">
+<p:panelGrid columns="2" class="btn btn-secondary btn-lg">
+    <f:facet name="header">
+        <p:graphicImage  library="images" height="200" width="200" name="reservation.png" />
+    </f:facet>
+    <p:commandButton id="btn" value="#{bundle.Reservation}" actionListener="#{customerController.prepareCreate}" update=":customerCreateForm" oncomplete="PF('customerCreateDialog').show()"/>
+</p:panelGrid>
+</p:panelGrid>
+</div>
+  </p:panel>
+  </div>
+</div>  
+</div>
+</div>
+<ui:include src="create.xhtml"/>
 	</ui:define>
 </ui:composition>
 </html>
