@@ -39,11 +39,11 @@ public class LoginController implements Serializable {
 			if (this.user.getPassword().equals(this.encryptPassword.getEncriptPassword(this.password))) {
 				switch (this.user.getRoleBean().getCode()) {
 				case "ADM":
-					return "/template?faces-redirect=true";
+					return "/administrator/list?faces-redirect=true";
 				case "EMP":
-					return "/template?faces-redirect=true";
+					return "/administrator/list?faces-redirect=true";
 				default:
-					return "/templateDefault?faces-redirect=true";
+					return "/customer/list?faces-redirect=true";
 				}
 			} else {
 				this.user = null;

@@ -45,7 +45,7 @@ public class RegisterController implements Serializable {
 	public void verifySession() {
 		if (this.controller.getUser() != null) {
 			try {
-				FacesContext.getCurrentInstance().getExternalContext().redirect("/ExpressSucre/faces/template.xhtml");
+				FacesContext.getCurrentInstance().getExternalContext().redirect("/ExpressSucre/faces/administrator/list.xhtml");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

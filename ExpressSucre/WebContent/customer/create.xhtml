@@ -30,9 +30,10 @@
 					<p:selectOneMenu id="busStationDestination" value="#{customerController.route.busStation2}" required="true" requiredMessage="#{bundle.CreateCustomerRequiredMessage_BusStationDestination}">
                     	<f:selectItems value="#{customerController.cityDestination.busStations}" var="customerBusStationDestinationItem" itemValue="#{customerBusStationDestinationItem}" itemLabel="#{customerBusStationDestinationItem.name}" />
                     </p:selectOneMenu>
-                    
-                     <p:outputLabel value="#{bundle.CreateScheduleLabel_Date}" for="scheduleDate"/>
-					<p:calendar id="scheduleDate" value="#{scheduleController.scheduleDate}" title="#{bundle.CreateScheduleTitle_Date}" required="true" requiredMessage="#{bundle.CreateScheduleRequiredMessage_Date}" pattern="MM/dd/yyyy HH:mm:ss"/>
+                    <p:outputLabel value="#{bundle.CreateCustomerLabel_Schedule}" for="customerSchedule"/>
+                    <p:selectOneMenu id="customerSchedule" value="#{customerController.route.busStation2}" required="true" requiredMessage="#{bundle.CreateCustomerRequiredMessage_BusStationDestination}">                
+                    	<f:selectItems value="#{customerController.cityDestination.busStations}" var="customerBusStationDestinationItem" itemValue="#{customerBusStationDestinationItem}" itemLabel="#{customerBusStationDestinationItem.name}" />
+                    </p:selectOneMenu>
 				</p:panelGrid>
 				<p:commandButton actionListener="#{customerController.create}" value="#{bundle.Save}" update="display,:message" oncomplete="handleSubmit(args,'customerCreateDialog');"/>
                 <p:commandButton value="#{bundle.Cancel}" actionListener="#{customerController.unselected}" immediate="true" onclick="customerCreateDialog.hide()"/>
