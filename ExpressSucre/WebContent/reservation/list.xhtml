@@ -20,10 +20,13 @@
 	    			<h:outputText value="#{item.id}"/>
 	    		</p:column>
 	    		<p:column headerText="#{bundle.ListReservationTitle_Person}">
-	    			<h:outputText value="#{item.personBean}"/>
+	    			<h:outputText value="#{item.personUserBean}"/>
 	    		</p:column>
 	    		<p:column headerText="#{bundle.ListReservationTitle_Schedule}">
 	    			<h:outputText value="#{item.scheduleBean}"/>
+	    		</p:column>
+	    		<p:column headerText="#{bundle.ListReservationTitle_BusSeat}">
+	    			<h:outputText value="#{item.busSeatBean}"/>
 	    		</p:column>
 	    		<f:facet name="footer">
 	    			<p:commandButton id="createButton" icon="ui-icon-plus" value="#{bundle.Create}" actionListener="#{reservationController.prepareCreate}" update=":reservationCreateForm" oncomplete="PF('reservationCreateDialog').show()"/>

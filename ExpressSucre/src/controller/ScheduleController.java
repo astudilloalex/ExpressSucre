@@ -35,7 +35,7 @@ public class ScheduleController implements Serializable {
 	private ScheduleFacade ejbFacade;
 	private List<Schedule> items = null;
 	private Schedule selected;
-	//Date for schedule prepare to converter time stamp
+	// Date for schedule prepare to converter time stamp
 	private Date scheduleDate;
 
 	// Constructor
@@ -184,7 +184,7 @@ public class ScheduleController implements Serializable {
 	}
 
 	public List<Schedule> getItemsAvailableSelectOne() {
-		return getFacade().findAll();
+		return getFacade().findByCurrentDate(new Timestamp(new Date().getTime()));
 	}
 
 	public Date getScheduleDate() {

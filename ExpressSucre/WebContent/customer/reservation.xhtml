@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition>
+	<p:dialog id="customerCreateDlg" widgetVar="customerCreateDialog" responsive="true" resizable="false" draggable="false" modal="true" header="#{bundle.CreateCustomerTitle}">
+		<h:form id="customerCreateForm">
+			<h:panelGroup id="display">
+				<p:panelGrid columns="2" rendered="#{customerController.selected!=null}">
+					<p:outputLabel value="#{bundle.CreateCustomerLabel_PersonUser}" for="personUser"/>
+					<p:panelGrid columns="2">
+						<p:selectOneMenu id="personUser" value="#{customerController.personUser}" required="true" requiredMessage="#{bundle.CreateCustomerRequiredMessage_PersonUser}">
+	                    	<f:selectItems value="#{customerController.personUsers}" var="personUsers" itemValue="#{personUsers}" itemLabel="#{personUsers.firstName} #{personUsers.lastName}" />
+                    	</p:selectOneMenu>
+                    	<p:commandButton value="#{bundle.More}" actionListener="#{customerController.prepareCreatePerson}" process="@this" icon="fa fa-plus" update=":personUserCreateForm" oncomplete="PF('personUserCreateDialog').show()"/>          
+					</p:panelGrid>
+					<p:outputLabel value="#{bundle.CreateCustomerLabel_CityOrigin}" for="customerCityOrigin"/>
+					<p:selectOneMenu id="customerCityOrigin" value="#{customerController.cityOrigin}" required="true" requiredMessage="#{bundle.CreateCustomerRequiredMessage_CityOrigin}">
+                    	<f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                    	<f:selectItems value="#{cityController.itemsAvailableSelectOne}" var="customerCityOriginItem" itemValue="#{customerCityOriginItem}" itemLabel="#{customerCityOriginItem.name}" />
+                    	<p:ajax event="change" update="busStationOrigin"/>
+                    </p:selectOneMenu>
+                    <p:outputLabel value="#{bundle.CreateCustomerLabel_BusStationOrigin}" for="busStationOrigin"/>
+                    <p:selectOneMenu id="busStationOrigin" value="#{customerController.busStation1}" required="true" requiredMessage="#{bundle.CreateCustomerRequiredMessage_BusStationOrigin}">
+                    	<f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                    	<f:selectItems value="#{customerController.cityOrigin.busStations}" var="customerBusStationOriginItem" itemValue="#{customerBusStationOriginItem}" itemLabel="#{customerBusStationOriginItem.name}" />
+                    	<p:ajax event="change" update="customerSchedule"/>
+                    </p:selectOneMenu>
+                    <p:outputLabel value="#{bundle.CreateCustomerLabel_CityDestination}" for="customerCityDestination"/>
+                    <p:selectOneMenu id="customerCityDestination" value="#{customerController.cityDestination}" required="true" requiredMessage="#{bundle.CreateCustomerRequiredMessage_CityDestination}">
+                    	<f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                    	<f:selectItems value="#{cityController.itemsAvailableSelectOne}" var="customerCityDestinationItem" itemValue="#{customerCityDestinationItem}" itemLabel="#{customerCityDestinationItem.name}" />
+                    	<p:ajax event="change" update="busStationDestination"/>
+                    </p:selectOneMenu>
+                    <p:outputLabel value="#{bundle.CreateCustomerLabel_BusStationDestination}" for="busStationDestination"/>
+					<p:selectOneMenu id="busStationDestination" value="#{customerController.busStation2}" required="true" requiredMessage="#{bundle.CreateCustomerRequiredMessage_BusStationDestination}">
+                    	<f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                    	<f:selectItems value="#{customerController.cityDestination.busStations}" var="customerBusStationDestinationItem" itemValue="#{customerBusStationDestinationItem}" itemLabel="#{customerBusStationDestinationItem.name}" />
+                    	<p:ajax event="change" update="customerSchedule"/>
+                    </p:selectOneMenu>
+                    <p:outputLabel value="#{bundle.CreateCustomerLabel_Schedule}" for="customerSchedule"/>
+                    <p:selectOneMenu id="customerSchedule" value="#{customerController.selected.scheduleBean}" required="true" requiredMessage="#{bundle.CreateCustomerRequiredMessage_Schedule}">                
+                    	<f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                    	<f:selectItems value="#{customerController.schedules}" var="customerScheduleItem" itemValue="#{customerScheduleItem}" itemLabel="#{customerScheduleItem.date}" />
+                    	<p:ajax event="change" update="customerBusSeats"/>
+                    </p:selectOneMenu>
+                    <p:outputLabel value="#{bundle.CreateCustomerLabel_BusSeat}" for="customerBusSeats"/>
+                    <p:selectOneMenu id="customerBusSeats" value="#{customerController.selected.busSeatBean}" required="true" requiredMessage="#{bundle.CreateCustomerRequiredMessage_BusSeat}">                
+                    	<f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                    	<f:selectItems value="#{customerController.busSeats}" var="customerBusSeat" itemValue="#{customerBusSeat}" itemLabel="#{customerBusSeat.seatBean.number} #{customerBusSeat.location}" />
+                    </p:selectOneMenu>
+				</p:panelGrid>
+				<p:commandButton actionListener="#{customerController.create}" value="#{bundle.Save}" update="display,:reservationListForm:reservationDataTable,:message" oncomplete="handleSubmit(args,'customerCreateDialog');"/>
+                <p:commandButton value="#{bundle.Cancel}" actionListener="#{customerController.unselected}" immediate="true" onclick="customerCreateDialog.hide()"/>
+			</h:panelGroup>
+		</h:form>
+	</p:dialog>
+</ui:composition>
+</html>

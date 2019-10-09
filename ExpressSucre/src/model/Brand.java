@@ -83,4 +83,5 @@ public class Brand implements Serializable {
 		}
 		return true;
 	}
+
 }

@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition>
+	<p:dialog id="personUserCreateDlg" widgetVar="personUserCreateDialog" responsive="true" resizable="false" draggable="false" modal="true" header="#{bundle.CreatePersonUserTitle}">
+		<h:form id="personUserCreateForm">
+			<h:panelGroup id="display">
+				<p:panelGrid columns="2" rendered="#{personUserController.selected!=null}">
+					<p:outputLabel value="#{bundle.CreatePersonUserLabel_User}" for="user"/>
+					<p:selectOneMenu id="user" value="#{personUserController.selected.user}" required="true" requiredMessage="#{bundle.CreatePersonUserRequiredMessage_User}">
+                    	<f:selectItems value="#{userController.itemsAvailableSelectOne}" var="userItem" itemValue="#{userItem}" itemLabel="#{userItem.username}" />
+                    </p:selectOneMenu>
+                    <p:outputLabel value="#{bundle.CreatePersonUserLabel_IdCard}" for="personUserIdCard"/>
+					<p:inputText id="personUserIdCard" value="#{personUserController.selected.idCard}" title="#{bundle.CreatePersonUserTitle_IdCard}" onblur="value=value.toUpperCase()" required="true" requiredMessage="#{bundle.CreatePersonUserRequiredMessage_IdCard}"/>			
+					<p:outputLabel value="#{bundle.CreatePersonUserLabel_FirstName}" for="personUserFirstName"/>
+					<p:inputText id="personUserFirstName" value="#{personUserController.selected.firstName}" title="#{bundle.CreatePersonUserTitle_FirstName}" onblur="value=value.toUpperCase()" required="true" requiredMessage="#{bundle.CreatePersonUserRequiredMessage_FirstName}"/>
+					<p:outputLabel value="#{bundle.CreatePersonUserLabel_LastName}" for="personUserLastName"/>
+					<p:inputText id="personUserLastName" value="#{personUserController.selected.lastName}" title="#{bundle.CreatePersonUserTitle_LastName}" onblur="value=value.toUpperCase()" required="true" requiredMessage="#{bundle.CreatePersonUserRequiredMessage_LastName}"/>
+				</p:panelGrid>
+				<p:commandButton actionListener="#{personUserController.create}" value="#{bundle.Save}" update="display,:personUserListForm:personUserDataTable,:message" oncomplete="handleSubmit(args,'personUserCreateDialog');"/>
+                <p:commandButton value="#{bundle.Cancel}" actionListener="#{personUserController.unselected}" immediate="true" onclick="personUserCreateDialog.hide()"/>
+			</h:panelGroup>
+		</h:form>
+	</p:dialog>
+</ui:composition>
+</html>

@@ -10,7 +10,10 @@ import java.util.List;
  * 
  */
 @Entity
-@NamedQuery(name = "Route.findAll", query = "SELECT r FROM Route r")
+@NamedQueries({
+	@NamedQuery(name = "Route.findAll", query = "SELECT r FROM Route r"),
+	@NamedQuery(name = "Route.findByBusStations", query = "SELECT r FROM Route r WHERE r.busStation1=:busStation1 AND r.busStation2=:busStation2") 
+})
 public class Route implements Serializable {
 	private static final long serialVersionUID = 1L;
 

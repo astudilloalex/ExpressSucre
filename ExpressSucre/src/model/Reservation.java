@@ -8,7 +8,10 @@ import javax.persistence.*;
  * 
  */
 @Entity
-@NamedQuery(name = "Reservation.findAll", query = "SELECT r FROM Reservation r")
+@NamedQueries({ 
+	@NamedQuery(name = "Reservation.findAll", query = "SELECT r FROM Reservation r"),
+	@NamedQuery(name = "Reservation.findByPerson", query = "SELECT r FROM Reservation r WHERE r.scheduleBean.date>CURRENT_TIMESTAMP AND r.personUserBean IN :personUsers ORDER BY r.scheduleBean.date DESC")
+})
 public class Reservation implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -16,10 +19,15 @@ public class Reservation implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	// bi-directional many-to-one association to Person
+	// bi-directional many-to-one association to BusSeat
 	@ManyToOne
-	@JoinColumn(name = "person")
-	private Person personBean;
+	@JoinColumn(name = "bus_seat")
+	private BusSeat busSeatBean;
+
+	// bi-directional many-to-one association to PersonUser
+	@ManyToOne
+	@JoinColumn(name = "person_user")
+	private PersonUser personUserBean;
 
 	// bi-directional many-to-one association to Schedule
 	@ManyToOne
@@ -37,12 +45,20 @@ public class Reservation implements Serializable {
 		this.id = id;
 	}
 
-	public Person getPersonBean() {
-		return this.personBean;
+	public BusSeat getBusSeatBean() {
+		return this.busSeatBean;
 	}
 
-	public void setPersonBean(Person personBean) {
-		this.personBean = personBean;
+	public void setBusSeatBean(BusSeat busSeatBean) {
+		this.busSeatBean = busSeatBean;
+	}
+
+	public PersonUser getPersonUserBean() {
+		return this.personUserBean;
+	}
+
+	public void setPersonUserBean(PersonUser personUserBean) {
+		this.personUserBean = personUserBean;
 	}
 
 	public Schedule getScheduleBean() {

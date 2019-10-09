@@ -2,6 +2,7 @@ package model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * The persistent class for the bus_seat database table.
@@ -9,7 +10,12 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "bus_seat")
-@NamedQuery(name = "BusSeat.findAll", query = "SELECT b FROM BusSeat b")
+@NamedQueries({ 
+	@NamedQuery(name = "BusSeat.findAll", query = "SELECT b FROM BusSeat b"),
+	@NamedQuery(name = "BusSeat.findByBus", query = "SELECT b FROM BusSeat b WHERE b.busBean=:bus"),
+	@NamedQuery(name = "BusSeat.findByBusActive", query = "SELECT b FROM BusSeat b WHERE b.state=true AND b.busBean=:bus"),
+	@NamedQuery(name = "BusSeat.findByAvailable", query = "SELECT b FROM BusSeat b WHERE b.state=true")
+})
 public class BusSeat implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -30,6 +36,10 @@ public class BusSeat implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "seat")
 	private Seat seatBean;
+
+	// bi-directional many-to-one association to Reservation
+	@OneToMany(mappedBy = "busSeatBean")
+	private List<Reservation> reservations;
 
 	public BusSeat() {
 	}
@@ -74,6 +84,28 @@ public class BusSeat implements Serializable {
 		this.seatBean = seatBean;
 	}
 
+	public List<Reservation> getReservations() {
+		return this.reservations;
+	}
+
+	public void setReservations(List<Reservation> reservations) {
+		this.reservations = reservations;
+	}
+
+	public Reservation addReservation(Reservation reservation) {
+		getReservations().add(reservation);
+		reservation.setBusSeatBean(this);
+
+		return reservation;
+	}
+
+	public Reservation removeReservation(Reservation reservation) {
+		getReservations().remove(reservation);
+		reservation.setBusSeatBean(null);
+
+		return reservation;
+	}
+
 	@Override
 	public int hashCode() {
 		int hash = 0;
@@ -93,4 +125,5 @@ public class BusSeat implements Serializable {
 		}
 		return true;
 	}
+
 }

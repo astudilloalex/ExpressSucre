@@ -11,7 +11,7 @@
 	<meta name="viewport" content="width=device-width,initial-scale=1.0" />
 	<title><ui:insert name="title">Express Sucre</ui:insert></title>
 	<h:outputScript library="js" name="jsfcrud.js" />
-	<h:outputStylesheet library="css" name="reservation_button.css" />
+	<h:outputStylesheet library="css" name="customer.css" />
 	<h:outputStylesheet library="css" name="bootstrap.min.css" />
 	<f:event listener="#{templateController.verifySession}" type="preRenderView" />
 </h:head>
@@ -23,9 +23,6 @@
 			<h:form>
 				<p:menubar>
 					<p:submenu label="Customer" icon="fa fa-user-plus">
-						<p:menuitem value="Roles"
-							url="/ExpressSucre/faces/role/list.xhtml" />
-						<p:menuitem value="Usuarios" url="#" />
 					</p:submenu>
 					<f:facet name="options">
 						<p:commandButton value="Logout" action="#{templateController.logoutSession}" icon="fa fa-home" />

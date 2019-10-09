@@ -14,12 +14,19 @@
 					<p:outputLabel value="#{bundle.EditReservationLabel_Id}" for="reservationId"/>
 					<p:inputText id="reservationId" value="#{reservationController.selected.id}" title="#{bundle.EditReservationTitle_Id}" readonly="true" required="true" requiredMessage="#{bundle.EditReservationRequiredMessage_Id}"/>
 					<p:outputLabel value="#{bundle.EditReservationLabel_Person}" for="reservationPerson"/>
-					<p:selectOneMenu id="reservationPerson" value="#{reservationController.selected.personBean}" required="true" requiredMessage="#{bundle.EditReservationRequiredMessage_Person}">
-                    	<f:selectItems value="#{personController.itemsAvailableSelectOne}" var="reservationPersonItem" itemValue="#{reservationPersonItem}" itemLabel="#{reservationPersonItem.idCard}" />
+					<p:selectOneMenu id="reservationPerson" value="#{reservationController.selected.personUserBean}" required="true" requiredMessage="#{bundle.EditReservationRequiredMessage_Person}">
+                    	<f:selectItems value="#{personUserController.itemsAvailableSelectOne}" var="reservationPersonUserItem" itemValue="#{reservationPersonUserItem}" itemLabel="#{reservationPersonUserItem.idCard}" />
                     </p:selectOneMenu>
                     <p:outputLabel value="#{bundle.EditReservationLabel_Schedule}" for="reservationSchedule"/>
 					<p:selectOneMenu id="reservationSchedule" value="#{reservationController.selected.scheduleBean}" required="true" requiredMessage="#{bundle.EditReservationRequiredMessage_Schedule}">
+                    	<f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                     	<f:selectItems value="#{scheduleController.itemsAvailableSelectOne}" var="reservationScheduleItem" itemValue="#{reservationScheduleItem}" itemLabel="#{reservationScheduleItem.date}" />
+                    	<p:ajax event="change" update="reservationBusSeat"/>
+                    </p:selectOneMenu>
+                    <p:outputLabel value="#{bundle.EditReservationLabel_BusSeat}" for="reservationBusSeat"/>
+					<p:selectOneMenu id="reservationBusSeat" value="#{reservationController.selected.busSeatBean}" required="true" requiredMessage="#{bundle.EditReservationRequiredMessage_BusSeat}">
+                    	<f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                    	<f:selectItems value="#{busSeatController.itemsAvailableBus}" var="reservationBusSeatItem" itemValue="#{reservationBusSeatItem}" itemLabel="#{reservationBusSeatItem.seatBean.number} #{reservationBusSeatItem.location}" />
                     </p:selectOneMenu>
 				</p:panelGrid>
 				<p:commandButton actionListener="#{reservationController.update}" value="#{bundle.Save}" update="display,:reservationListForm:reservationDataTable,:message" oncomplete="handleSubmit(args,'reservationEditDialog');"/>

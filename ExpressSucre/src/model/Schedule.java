@@ -10,7 +10,11 @@ import java.util.List;
  * 
  */
 @Entity
-@NamedQuery(name = "Schedule.findAll", query = "SELECT s FROM Schedule s")
+@NamedQueries({ 
+	@NamedQuery(name = "Schedule.findAll", query = "SELECT s FROM Schedule s"),
+	@NamedQuery(name = "Schedule.findByRoute", query = "SELECT s FROM Schedule s WHERE s.routeBean=:route AND s.date>:date"),
+	@NamedQuery(name = "Schedule.findByCurrentDate", query = "SELECT s FROM Schedule s WHERE s.date>:date")
+})
 public class Schedule implements Serializable {
 	private static final long serialVersionUID = 1L;
 

@@ -14,9 +14,11 @@
 					<h:outputText value="#{bundle.ViewReservationLabel_Id}"/>
 					<h:outputText value="#{reservationController.selected.id}" title="#{bundle.ViewReservationTitle_Id}"/>
 					<h:outputText value="#{bundle.ViewReservationLabel_Person}"/>
-					<h:outputText value="#{reservationController.selected.personBean}" title="#{bundle.ViewReservationTitle_Person}"/>
+					<h:outputText value="#{reservationController.selected.personUserBean}" title="#{bundle.ViewReservationTitle_Person}"/>
 					<h:outputText value="#{bundle.ViewReservationLabel_Schedule}"/>
 					<h:outputText value="#{reservationController.selected.scheduleBean}" title="#{bundle.ViewReservationTitle_Schedule}"/>
+					<h:outputText value="#{bundle.ViewReservationLabel_BusSeat}"/>
+					<h:outputText value="#{reservationController.selected.busSeatBean}" title="#{bundle.ViewReservationTitle_BusSeat}"/>
 				</p:panelGrid>
                 <p:commandButton value="#{bundle.Close}" onclick="reservationViewDialog.hide()"/>
 			</h:panelGroup>
