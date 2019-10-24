@@ -12,7 +12,7 @@
 	<title><ui:insert name="title">Express Sucre</ui:insert></title>
 	<h:outputScript library="js" name="jsfcrud.js" />
 	<h:outputStylesheet library="css" name="administration.css" />
-	<f:event listener="#{templateController.verifySession}" type="preRenderView" />
+	<f:event listener="#{templateController.verifyAdministrator}" type="preRenderView"/>
 </h:head>
 
 <h:body>
@@ -25,6 +25,7 @@
 						<p:menuitem value="#{bundle.MenuItemRoleTitle}" url="/ExpressSucre/faces/role/list.xhtml" />
 						<p:menuitem value="#{bundle.MenuItemPersonTitle}" url="/ExpressSucre/faces/person/list.xhtml" />
 						<p:menuitem value="#{bundle.MenuItemUserTitle}" url="/ExpressSucre/faces/user/list.xhtml" />
+						<p:menuitem value="#{bundle.MenuItemPersonUserTitle}" url="/ExpressSucre/faces/personuser/list.xhtml" />
 					</p:submenu>
 					<p:submenu label="#{bundle.MenuBusTitle}" icon="fa fa-bus" >
 						<p:menuitem value="#{bundle.MenuItemBrandTitle}" url="/ExpressSucre/faces/brand/list.xhtml" />

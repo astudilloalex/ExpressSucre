@@ -12,7 +12,6 @@
 	    <h:outputText value="#{bundle.ListRoleTitle}"></h:outputText>
 	</ui:define>
 	<ui:define name="content">
-		<f:event listener="#{templateController.verifyAdministrator}" type="preRenderView"></f:event>
 	    <h:form id="roleListForm">
 	    	<p:dataTable id="roleDataTable" var="item" value="#{roleController.items}" selectionMode="single" selection="#{roleController.selected}" rowKey="#{item.id}" reflow="true" rows="10" paginator="true" widgetVar="roleTableVar">
 	    		<p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>

@@ -2,6 +2,8 @@ package model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.util.List;
+
 
 /**
  * The persistent class for the user database table.
@@ -10,28 +12,32 @@ import javax.persistence.*;
 @Entity
 @Table(name = "user", schema = "public")
 @NamedQueries({ 
-		@NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
-		@NamedQuery(name = "User.findByUsername", query = "SELECT u FROM User u WHERE u.username=:username") 
+	@NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
+	@NamedQuery(name = "User.findByUsername", query = "SELECT u FROM User u WHERE u.username=:username")
 })
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 
 	private String password;
 
 	private String username;
 
-	// bi-directional many-to-one association to Person
+	//bi-directional many-to-one association to PersonUser
+	@OneToMany(mappedBy="user")
+	private List<PersonUser> personUsers;
+
+	//bi-directional many-to-one association to Person
 	@ManyToOne
-	@JoinColumn(name = "person")
+	@JoinColumn(name="person")
 	private Person personBean;
 
-	// bi-directional many-to-one association to Role
+	//bi-directional many-to-one association to Role
 	@ManyToOne
-	@JoinColumn(name = "role")
+	@JoinColumn(name="role")
 	private Role roleBean;
 
 	public User() {
@@ -59,6 +65,28 @@ public class User implements Serializable {
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	public List<PersonUser> getPersonUsers() {
+		return this.personUsers;
+	}
+
+	public void setPersonUsers(List<PersonUser> personUsers) {
+		this.personUsers = personUsers;
+	}
+
+	public PersonUser addPersonUser(PersonUser personUser) {
+		getPersonUsers().add(personUser);
+		personUser.setUser(this);
+
+		return personUser;
+	}
+
+	public PersonUser removePersonUser(PersonUser personUser) {
+		getPersonUsers().remove(personUser);
+		personUser.setUser(null);
+
+		return personUser;
 	}
 
 	public Person getPersonBean() {

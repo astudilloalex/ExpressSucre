@@ -13,7 +13,7 @@
 				<p:panelGrid columns="2" rendered="#{scheduleController.selected!=null}">
 					<p:outputLabel value="#{bundle.CreateScheduleLabel_Route}" for="scheduleRoute"/>
 					<p:selectOneMenu id="scheduleRoute" value="#{scheduleController.selected.routeBean}" required="true" requiredMessage="#{bundle.CreateScheduleRequiredMessage_Route}">
-                    	<f:selectItems value="#{routeController.itemsAvailableSelectOne}" var="scheduleRouteItem" itemValue="#{scheduleRouteItem}" itemLabel="#{scheduleRouteItem.busStation1.name}" />
+                    	<f:selectItems value="#{routeController.itemsAvailableSelectOne}" var="scheduleRouteItem" itemValue="#{scheduleRouteItem}" itemLabel="#{scheduleRouteItem.busStation1.name} - #{scheduleRouteItem.busStation2.name}" />
                     </p:selectOneMenu>
                     <p:outputLabel value="#{bundle.CreateScheduleLabel_Bus}" for="scheduleBus"/>
 					<p:selectOneMenu id="scheduleBus" value="#{scheduleController.selected.busBean}" required="true" requiredMessage="#{bundle.CreateScheduleRequiredMessage_Bus}">

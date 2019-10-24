@@ -9,6 +9,7 @@
 		<class>model.City</class>
 		<class>model.Country</class>
 		<class>model.Person</class>
+		<class>model.PersonUser</class>
 		<class>model.Platform</class>
 		<class>model.Reservation</class>
 		<class>model.Role</class>

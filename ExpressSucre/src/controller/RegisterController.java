@@ -14,9 +14,11 @@ import javax.inject.Named;
 
 import data.EncryptPassword;
 import facade.PersonFacade;
+import facade.PersonUserFacade;
 import facade.RoleFacade;
 import facade.UserFacade;
 import model.Person;
+import model.PersonUser;
 import model.User;
 
 @Named("registerController")
@@ -35,17 +37,34 @@ public class RegisterController implements Serializable {
 	private UserFacade userFacade;
 	@EJB
 	private RoleFacade roleFacade;
+	@EJB
+	private PersonUserFacade personUserFacade;
+	
+	private PersonUser personUser;
 	private Person person;
 	private User user;
 	private String password;
 	private String repeatPassword;
 	private EncryptPassword encryptPassword;
 	
+	private void createPersonUser() {
+		this.personUser=new PersonUser();
+		this.personUser.setUser(this.user);
+		this.personUser.setIdCard(this.person.getIdCard());
+		this.personUser.setFirstName(this.person.getFirstName());
+		this.personUser.setLastName(this.person.getLastName());
+		this.personUserFacade.create(this.personUser);
+	}
+	
 	@PostConstruct
 	public void verifySession() {
 		if (this.controller.getUser() != null) {
 			try {
-				FacesContext.getCurrentInstance().getExternalContext().redirect("/ExpressSucre/faces/administrator/list.xhtml");
+				if(this.controller.getUser().getRoleBean().getCode().equals("ADM") || this.controller.getUser().getRoleBean().getCode().equals("EMP")) {
+					FacesContext.getCurrentInstance().getExternalContext().redirect("/ExpressSucre/faces/administrator/list.xhtml");
+				}else {
+					FacesContext.getCurrentInstance().getExternalContext().redirect("/ExpressSucre/faces/customer/list.xhtml");
+				}
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -64,6 +83,7 @@ public class RegisterController implements Serializable {
 			this.user.setPassword(this.encryptPassword.getEncriptPassword(this.password));
 			this.user.setPersonBean(this.person);
 			this.userFacade.create(this.user);
+			this.createPersonUser();
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_INFO,
 							ResourceBundle.getBundle("/Bundle").getString("RegisterCompleted"),

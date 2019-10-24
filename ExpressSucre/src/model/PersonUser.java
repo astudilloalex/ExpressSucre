@@ -5,19 +5,21 @@ import javax.persistence.*;
 import java.util.List;
 
 /**
- * The persistent class for the person database table.
+ * The persistent class for the person_user database table.
  * 
  */
 @Entity
-@NamedQuery(name = "Person.findAll", query = "SELECT p FROM Person p")
-public class Person implements Serializable {
+@Table(name = "person_user")
+@NamedQueries({
+	@NamedQuery(name = "PersonUser.findAll", query = "SELECT p FROM PersonUser p"),
+	@NamedQuery(name = "PersonUser.findByUser", query = "SELECT p FROM PersonUser p WHERE p.user=:user")
+})
+public class PersonUser implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-
-	private String address;
 
 	@Column(name = "first_name")
 	private String firstName;
@@ -28,13 +30,15 @@ public class Person implements Serializable {
 	@Column(name = "last_name")
 	private String lastName;
 
-	private String phone;
-
 	// bi-directional many-to-one association to User
-	@OneToMany(mappedBy = "personBean")
-	private List<User> users;
+	@ManyToOne
+	private User user;
 
-	public Person() {
+	// bi-directional many-to-one association to Reservation
+	@OneToMany(mappedBy = "personUserBean")
+	private List<Reservation> reservations;
+
+	public PersonUser() {
 	}
 
 	public Integer getId() {
@@ -43,14 +47,6 @@ public class Person implements Serializable {
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public String getAddress() {
-		return this.address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
 	}
 
 	public String getFirstName() {
@@ -77,34 +73,34 @@ public class Person implements Serializable {
 		this.lastName = lastName;
 	}
 
-	public String getPhone() {
-		return this.phone;
+	public User getUser() {
+		return this.user;
 	}
 
-	public void setPhone(String phone) {
-		this.phone = phone;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
-	public List<User> getUsers() {
-		return this.users;
+	public List<Reservation> getReservations() {
+		return this.reservations;
 	}
 
-	public void setUsers(List<User> users) {
-		this.users = users;
+	public void setReservations(List<Reservation> reservations) {
+		this.reservations = reservations;
 	}
 
-	public User addUser(User user) {
-		getUsers().add(user);
-		user.setPersonBean(this);
+	public Reservation addReservation(Reservation reservation) {
+		getReservations().add(reservation);
+		reservation.setPersonUserBean(this);
 
-		return user;
+		return reservation;
 	}
 
-	public User removeUser(User user) {
-		getUsers().remove(user);
-		user.setPersonBean(null);
+	public Reservation removeReservation(Reservation reservation) {
+		getReservations().remove(reservation);
+		reservation.setPersonUserBean(null);
 
-		return user;
+		return reservation;
 	}
 
 	@Override
@@ -117,10 +113,10 @@ public class Person implements Serializable {
 	@Override
 	public boolean equals(Object object) {
 		// TODO: Warning - this method won't work in the case the id fields are not set
-		if (!(object instanceof Person)) {
+		if (!(object instanceof PersonUser)) {
 			return false;
 		}
-		Person other = (Person) object;
+		PersonUser other = (PersonUser) object;
 		if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
 			return false;
 		}
