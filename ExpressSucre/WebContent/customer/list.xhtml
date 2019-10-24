@@ -47,6 +47,9 @@
 	    		<p:column headerText="#{bundle.ListReservationTitle_BusSeat}">
 	    			<h:outputText value="#{item.busSeatBean.seatBean.number} #{item.busSeatBean.location}"/>
 	    		</p:column>
+	    		<p:column headerText="#{bundle.ListReservationTitle_RouteAmount}">
+	    			<h:outputText value="#{item.scheduleBean.routeBean.amount}"/>
+	    		</p:column>
 	    		<f:facet name="footer">	  
 	    			<p:commandLink styleClass="btn btn-outline-primary" id="printButton" ajax="false" value="#{bundle.Print}" target="_blank" disabled="#{empty customerController.selected}">
 	    				<p:fileDownload value="#{customerController.printReservation}" contentDisposition="inline"/>

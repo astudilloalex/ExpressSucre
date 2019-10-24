@@ -46,13 +46,15 @@
                     <p:selectOneMenu id="customerSchedule" value="#{customerController.selected.scheduleBean}" required="true" requiredMessage="#{bundle.CreateCustomerRequiredMessage_Schedule}">                
                     	<f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                     	<f:selectItems value="#{customerController.schedules}" var="customerScheduleItem" itemValue="#{customerScheduleItem}" itemLabel="#{customerScheduleItem.date}" />
-                    	<p:ajax event="change" update="customerBusSeats"/>
+                    	<p:ajax event="change" update="customerBusSeats customerAmount"/>
                     </p:selectOneMenu>
                     <p:outputLabel value="#{bundle.CreateCustomerLabel_BusSeat}" for="customerBusSeats"/>
                     <p:selectOneMenu id="customerBusSeats" value="#{customerController.selected.busSeatBean}" required="true" requiredMessage="#{bundle.CreateCustomerRequiredMessage_BusSeat}">                
                     	<f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                     	<f:selectItems value="#{customerController.busSeats}" var="customerBusSeat" itemValue="#{customerBusSeat}" itemLabel="#{customerBusSeat.seatBean.number} #{customerBusSeat.location}" />
                     </p:selectOneMenu>
+                    <p:outputLabel value="#{bundle.CreateCustomerLabel_Amount}" for="customerAmount"/>
+                    <p:inputNumber id="customerAmount" symbol="$" value="#{customerController.selected.scheduleBean.routeBean.amount}" readonly="true"/>
 				</p:panelGrid>
 				<p:commandButton actionListener="#{customerController.create}" value="#{bundle.Save}" update="display,:reservationListForm:reservationDataTable,:message" oncomplete="handleSubmit(args,'customerCreateDialog');"/>
                 <p:commandButton value="#{bundle.Cancel}" actionListener="#{customerController.unselected}" immediate="true" onclick="customerCreateDialog.hide()"/>

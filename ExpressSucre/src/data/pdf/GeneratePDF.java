@@ -1,8 +1,10 @@
-package data;
+package data.pdf;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -36,6 +38,18 @@ public class GeneratePDF implements Serializable {
 	private PDPage page;
 	private PDPageContentStream pageContentStream;
 
+	// Page configuration
+    private static final PDRectangle PAGE_SIZE = PDRectangle.A4;
+    private static final float MARGIN = 20;
+    private static final boolean IS_LANDSCAPE = true;
+
+    // Font configuration
+    private static final PDFont TEXT_FONT = PDType1Font.HELVETICA;
+    private static final float FONT_SIZE =15;
+
+    // Table configuration
+    private static final float ROW_HEIGHT = 25;
+    private static final float CELL_MARGIN = 2;
 	/**
 	 * The constructor allows initializing default variables.
 	 */
@@ -91,45 +105,41 @@ public class GeneratePDF implements Serializable {
 		this.pageContentStream.showText(text);
 	}
 
+	private static Table tableReservation(Reservation reservation) {
+		List<Column> columns = new ArrayList<Column>();
+		columns.add(new Column(400, ResourceBundle.getBundle("/Bundle").getString("ReservationPDF_BusPlate")+reservation.getScheduleBean().getBusBean().getPlate()));
+		columns.add(new Column(400, ResourceBundle.getBundle("/Bundle").getString("ReservationPDF_BusNumber")+reservation.getScheduleBean().getBusBean().getDiskNumber()));
+		String[][] content= {
+				{ResourceBundle.getBundle("/Bundle").getString("ReservationPDF_BusSeat")+reservation.getBusSeatBean().getSeatBean().getNumber()+" "+reservation.getBusSeatBean().getLocation(),ResourceBundle.getBundle("/Bundle").getString("ReservationPDF_Schedule")+reservation.getScheduleBean().getDate()},
+				{ResourceBundle.getBundle("/Bundle").getString("ReservationPDF_IdCard")+ reservation.getPersonUserBean().getIdCard(), ResourceBundle.getBundle("/Bundle").getString("ReservationPDF_Name")+ reservation.getPersonUserBean().getFirstName()+" "+reservation.getPersonUserBean().getLastName()},
+				{ResourceBundle.getBundle("/Bundle").getString("ReservationPDF_BusStationOrigin")+reservation.getScheduleBean().getRouteBean().getBusStation1().getName(), ResourceBundle.getBundle("/Bundle").getString("ReservationPDF_BusStationDestination")+reservation.getScheduleBean().getRouteBean().getBusStation2().getName()},
+				{"", ""},
+				{"", ResourceBundle.getBundle("/Bundle").getString("ReservationPDF_Amount")+reservation.getScheduleBean().getRouteBean().getAmount()}
+		};
+		float tableHeight = IS_LANDSCAPE ? PAGE_SIZE.getWidth() - (2 * MARGIN) : PAGE_SIZE.getHeight() - (2 * MARGIN);
+		Table table = new TableBuilder()
+	            .setCellMargin(CELL_MARGIN)
+	            .setColumns(columns)
+	            .setContent(content)
+	            .setHeight(tableHeight)
+	            .setNumberOfRows(content.length)
+	            .setRowHeight(ROW_HEIGHT)
+	            .setMargin(MARGIN)
+	            .setPageSize(PAGE_SIZE)
+	            .setLandscape(IS_LANDSCAPE)
+	            .setTextFont(TEXT_FONT)
+	            .setFontSize(FONT_SIZE)
+	            .build();
+		return table;
+	}
+	
 	public byte[] getReservation(Reservation reservation) {
-		this.fontSize = 20;
-		this.document = new PDDocument();
-		this.addPageA4();
 		try {
-			this.pageContentStream = new PDPageContentStream(this.document, this.page);
-			this.pageContentStream.beginText();
-			this.centerText(this.companyName);
-			this.fontSize = 12;
-			this.setLeading(1f);
-			this.addNewLineText(ResourceBundle.getBundle("/Bundle").getString("ReservationPDF_BusPlate")
-					+ reservation.getScheduleBean().getBusBean().getPlate());
-			this.addNewLineText(ResourceBundle.getBundle("/Bundle").getString("ReservationPDF_BusNumber")
-					+ reservation.getScheduleBean().getBusBean().getDiskNumber());
-			this.addNewLineText(ResourceBundle.getBundle("/Bundle").getString("ReservationPDF_Schedule")
-					+ reservation.getScheduleBean().getDate());
-			this.addNewLineText(ResourceBundle.getBundle("/Bundle").getString("ReservationPDF_IdCard")
-					+ reservation.getPersonUserBean().getIdCard());
-			this.addNewLineText(ResourceBundle.getBundle("/Bundle").getString("ReservationPDF_Name")
-					+ reservation.getPersonUserBean().getFirstName() + " "
-					+ reservation.getPersonUserBean().getLastName());
-			this.addNewLineText(ResourceBundle.getBundle("/Bundle").getString("ReservationPDF_BusSeat")
-					+ reservation.getBusSeatBean().getSeatBean().getNumber() + " "
-					+ reservation.getBusSeatBean().getLocation());
-			this.pageContentStream.endText();
-			this.pageContentStream.close();
-			this.outputStream = new ByteArrayOutputStream();
-			this.document.save(this.outputStream);
+			return new PDFTableGenerator().generatePDF(tableReservation(reservation)).toByteArray();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} finally {
-			try {
-				this.document.close();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 		}
-		return this.outputStream.toByteArray();
+		return null;
 	}
 }

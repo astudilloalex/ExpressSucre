@@ -30,4 +30,12 @@
 		<param-name>primefaces.THEME</param-name>
 		<param-value>bootstrap</param-value>
 	</context-param>
+	<error-page>
+		<exception-type>javax.faces.application.ViewExpiredException</exception-type>
+		<location>/login?faces-redirect=true</location>
+	</error-page>
+	<error-page>
+		<error-code>500</error-code>
+		<location>/login?faces-redirect=true</location>
+	</error-page>
 </web-app>

@@ -23,9 +23,9 @@ import javax.inject.Named;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
-import data.GeneratePDF;
 import data.JsfUtil;
 import data.JsfUtil.PersistAction;
+import data.pdf.GeneratePDF;
 import facade.BusSeatFacade;
 import facade.PersonUserFacade;
 import facade.ReservationFacade;
@@ -316,8 +316,10 @@ public class CustomerController implements Serializable {
 	}
 
 	public List<BusSeat> getBusSeats() {
-		if (this.selected.getScheduleBean() != null) {
-			this.busSeats = getBusSeatFacade().findByBusActive(this.selected.getScheduleBean().getBusBean());
+		if (this.selected != null) {
+			if (this.selected.getScheduleBean() != null) {
+				this.busSeats = getBusSeatFacade().findByBusActive(this.selected.getScheduleBean().getBusBean());
+			}
 		}
 		return busSeats;
 	}
